@@ -1,3 +1,45 @@
+
+<style id="hpMulusCSS">
+.nav-icons{display:inline-flex;align-items:center;gap:8px;margin-left:auto}
+.icon-btn{background:#1e293b;border:1px solid #334155;color:#38bdf8;width:38px;height:38px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;flex-shrink:0}
+#hbBtn{display:none}
+#langDrop{display:none;position:fixed;top:66px;right:16px;background:#0f172a;border:1px solid #38bdf8;border-radius:14px;padding:10px;z-index:999999;box-shadow:0 15px 35px rgba(0,0,0,.9);width:220px;max-height:340px;overflow-y:auto}
+.lang-opt{display:flex;align-items:center;gap:10px;width:100%;background:transparent;border:none;color:#f8fafc;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-align:left}
+.lang-opt:active,.lang-opt:hover{background:rgba(38,209,155,.18);color:#26D19B}
+#mobileDrawer{display:none;width:100%;flex-basis:100%;flex-direction:column;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #1e293b}
+#mobileDrawer.open{display:flex!important}
+#mobileDrawer a{display:flex;align-items:center;justify-content:space-between;width:100%;box-sizing:border-box;background:#1e293b;border:1px solid #334155;padding:13px 16px;border-radius:12px;color:#f8fafc!important;text-decoration:none;font-size:14px;font-weight:700}
+.goog-te-banner-frame.skiptranslate,.goog-te-gadget-icon{display:none!important}
+body{top:0!important}
+@media(max-width:768px){
+  /* Ringankan GPU HP agar scroll & refresh mulus tanpa patah-patah */
+  *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;animation-duration:0.01ms!important;transition-duration:0.12s!important}
+  canvas{display:none!important}
+  /* Rapikan header HP: hanya Logo kiri + tombol 🌐 & ☰ kanan */
+  header{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;justify-content:space-between!important;align-items:center!important;padding:12px 4%!important;gap:0!important}
+  header nav, header > div:has(a[href*="ebilling"]), header > div:has(a[href*="#paket"]), header > a[href*="ebilling"], header > a[href*="#paket"]{display:none!important}
+  #hbBtn{display:inline-flex!important}
+}
+</style>
+
+<div id="langDrop">
+  <div style="font-size:11px;font-weight:800;color:#26D19B;padding:4px 8px 8px;border-bottom:1px solid #1e293b;margin-bottom:4px">&#127760; Pilih Bahasa / Language</div>
+  <button type="button" class="lang-opt" onclick="setBahasa('id')">&#127470;&#127465; Indonesia (Asli)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('en')">&#127468;&#127463; English (Global)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('ar')">&#127480;&#127462; &#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577; (Arabic)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('ja')">&#127471;&#127477; &#26085;&#26412;&#35486; (Japanese)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('ko')">&#127472;&#127479; &#54620;&#44397;&#50612; (Korean)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('zh-CN')">&#127464;&#127475; &#20013;&#25991; (Mandarin)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('ms')">&#127474;&#127486; Bahasa Melayu</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('fr')">&#127467;&#127479; Fran&ccedil;ais (French)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('de')">&#127465;&#127466; Deutsch (German)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('es')">&#127466;&#127480; Espa&ntilde;ol (Spanish)</button>
+  <div id="google_translate_element" style="display:none"></div>
+</div>
+
+
+
+
 <!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 94 90'%3E%3Cpath d='M48 4A43 43 0 1 0 48 90V72A25 25 0 1 1 48 22Z' fill='%230095da'/%3E%3Crect x='6' y='47' width='21' height='21' rx='3' fill='%2322c55e'/%3E%3Crect x='28' y='25' width='21' height='21' rx='3' fill='%2310b981'/%3E%3Crect x='50' y='47' width='21' height='21' rx='3' fill='%2306b6d4'/%3E%3Crect x='72' y='25' width='21' height='21' rx='3' fill='%230284c7'/%3E%3Crect x='54' y='4' width='17' height='17' rx='3' fill='%230095da'/%3E%3Crect x='75' y='54' width='17' height='17' rx='3' fill='%230095da'/%3E%3Crect x='55' y='72' width='17' height='17' rx='3' fill='%230095da'/%3E%3C/svg%3E"><title>GMDP - Internet &amp; Data Service — Internet &amp; Data Infrastructure Service</title><style>*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Segoe UI,Roboto,sans-serif}body{background:#0f172a;color:#f8fafc;line-height:1.6}a{text-decoration:none}nav{background:rgba(15,23,42,.95);padding:14px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1e293b;position:relative;top:0;z-index:100}.logo{font-size:22px;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px}.logo-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#0EA5E9,#26D19B)}.logo span{color:#0EA5E9}.menu{display:flex;gap:20px;font-size:14px}.menu a{color:#cbd5e1}.menu a:hover{color:#0EA5E9}.nav-btn{display:flex;gap:10px}.btn-outline{border:1px solid #0EA5E9;color:#0EA5E9;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600}.btn-primary{background:linear-gradient(135deg,#0EA5E9,#26D19B);color:#0f172a;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:700}.hero{padding:65px 6% 55px;border-bottom:1px solid rgba(51,65,85,.5)}.hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:36px;align-items:center}.pill{display:inline-block;background:rgba(14,165,233,.15);border:1px solid rgba(14,165,233,.4);color:#38bdf8;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:14px}.hero h1{font-size:36px;line-height:1.2;font-weight:800;margin-bottom:14px}.hero h1 span{background:linear-gradient(90deg,#0EA5E9,#26D19B);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero p{color:#94a3b8;font-size:15px;margin-bottom:24px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.noc-card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:24px}.noc-head{display:flex;justify-content:space-between;border-bottom:1px solid #334155;padding-bottom:12px;margin-bottom:16px;font-size:12px;color:#94a3b8}.status-ok{color:#26D19B;font-weight:700}.noc-stat{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat-box{background:#0f172a;padding:14px;border-radius:10px;border:1px solid #334155}.stat-box small{color:#64748b;font-size:11px;display:block}.stat-box b{font-size:18px;color:#f8fafc}@media(max-width:768px){header{flex-direction:column;gap:12px;padding:14px 4%}nav{flex-wrap:wrap;justify-content:center;gap:8px}.hero-grid{grid-template-columns:1fr!important}.grid-3{grid-template-columns:1fr!important}}
 .nav-icons{display:flex;align-items:center;gap:10px}
 .icon-btn{background:rgba(30,41,59,.9);border:1px solid #334155;color:#38bdf8;width:38px;height:38px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:.25s}
@@ -17,7 +59,21 @@ body{top:0!important}
   #langDrop{right:4%;top:62px}
 }
 </style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script></head>
-<style>.sec{position:relative;z-index:1;padding:55px 6%;border-bottom:1px solid #1e293b}.sec-title{text-align:center;max-width:650px;margin:0 auto 36px}.sec-title h2{font-size:26px;margin-bottom:8px}.sec-title p{color:#94a3b8;font-size:14px}.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:24px}.card h3{font-size:17px;margin-bottom:8px}.card p{font-size:13px;color:#94a3b8}.pkg{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:26px;position:relative}.pkg.feat{border:2px solid #26D19B}.badge-pop{position:absolute;top:16px;right:16px;background:#26D19B;color:#0f172a;font-size:11px;font-weight:800;padding:3px 10px;border-radius:12px}.pkg .spd{font-size:32px;font-weight:800;color:#0EA5E9;margin:8px 0}.pkg .prc{font-size:20px;font-weight:700;margin-bottom:14px}.pkg ul{list-style:none;font-size:13px;color:#cbd5e1;margin-bottom:20px}.pkg ul li{margin-bottom:7px}.pkg a{display:block;text-align:center;padding:11px;border-radius:8px;background:#0EA5E9;color:#0f172a;font-weight:700;font-size:14px}.tools-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}.tool{background:#1e293b;border:1px solid #334155;padding:16px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;color:#f8fafc;font-size:14px;font-weight:600}.tool span{color:#26D19B;font-size:12px}.cov-box{max-width:600px;margin:0 auto;background:#1e293b;padding:24px;border-radius:14px;border:1px solid #334155}.cov-row{display:flex;gap:10px;margin-top:12px}.cov-row input{flex:1;background:#0f172a;border:1px solid #334155;color:#fff;padding:12px;border-radius:8px}.cov-row button{background:#26D19B;color:#0f172a;border:none;padding:0 20px;border-radius:8px;font-weight:700;cursor:pointer}footer{position:relative;z-index:1;background:rgba(11,17,32,.85);padding:28px 6%;text-align:center;color:#64748b;font-size:13px;}</style><body><div id="splash" style="position:fixed;inset:0;background:#0f172a;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s ease"><style>@keyframes flyL{0%{opacity:0;transform:translate(-65px,0) rotate(-35deg) scale(.4)}70%{opacity:1;transform:translate(4px,0) rotate(3deg) scale(1.03)}100%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}}@keyframes flyT{0%{opacity:0;transform:translate(0,-65px) scale(.3)}100%{opacity:1;transform:translate(0,0) scale(1)}}@keyframes flyB{0%{opacity:0;transform:translate(0,65px) scale(.3)}100%{opacity:1;transform:translate(0,0) scale(1)}}@keyframes flyR{0%{opacity:0;transform:translate(65px,-30px) scale(.3)}100%{opacity:1;transform:translate(0,0) scale(1)}}@keyframes fadeUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}.bp-c{animation:flyL .85s cubic-bezier(.22,1,.36,1) forwards}.bp-1{opacity:0;animation:flyT .65s .2s cubic-bezier(.22,1,.36,1) forwards}.bp-2{opacity:0;animation:flyB .65s .32s cubic-bezier(.22,1,.36,1) forwards}.bp-3{opacity:0;animation:flyT .65s .44s cubic-bezier(.22,1,.36,1) forwards}.bp-4{opacity:0;animation:flyR .65s .56s cubic-bezier(.22,1,.36,1) forwards}.bp-s{opacity:0;animation:flyR .6s .68s cubic-bezier(.22,1,.36,1) forwards}.bp-txt{opacity:0;animation:fadeUp .6s .85s ease forwards}</style><svg width="135" height="116" viewBox="0 0 110 95" fill="none"><defs><linearGradient id="gS" x1="8" y1="60" x2="90" y2="35" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22c55e"/><stop offset="50%" stop-color="#14b8a6"/><stop offset="100%" stop-color="#0284c7"/></linearGradient></defs><path class="bp-c" d="M48 6A41 41 0 1 0 48 88V72A25 25 0 1 1 48 22Z" fill="#0095da"/><path class="bp-2" d="M22 58L41 39L60 58L79 39" stroke="url(#gS)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><rect class="bp-1" x="8" y="48" width="19" height="19" rx="3" fill="#22c55e" stroke="#0f172a" stroke-width="2.5"/><rect class="bp-2" x="29" y="27" width="19" height="19" rx="3" fill="#10b981" stroke="#0f172a" stroke-width="2.5"/><rect class="bp-3" x="50" y="48" width="19" height="19" rx="3" fill="#06b6d4" stroke="#0f172a" stroke-width="2.5"/><rect class="bp-4" x="71" y="27" width="19" height="19" rx="3" fill="#0284c7" stroke="#0f172a" stroke-width="2.5"/><g class="bp-s"><rect x="55" y="7" width="14" height="14" rx="2.5" fill="#0095da"/><rect x="76" y="15" width="8" height="8" rx="1.5" fill="#0095da"/><rect x="55" y="34" width="11" height="11" rx="2" fill="#0095da"/><rect x="76" y="55" width="13" height="13" rx="2.5" fill="#0095da"/><rect x="57" y="71" width="14" height="14" rx="2.5" fill="#0095da"/></g></svg><div class="bp-txt" style="text-align:center"><div style="font-size:36px;font-weight:900;color:#0095da;letter-spacing:2px;margin-top:8px;font-family:Arial Black,sans-serif">GMDP</div><div style="font-size:12px;color:#94a3b8;letter-spacing:1px;margin-top:2px">Internet &amp; Data Service &bull; Fiberbyte</div></div></div><script>setTimeout(function(){var s=document.getElementById("splash");if(s){s.style.opacity="0";setTimeout(function(){s.remove();},600);}},2100);</script><nav><div class="logo" style="display:flex;align-items:center;gap:6px"><svg width="64" height="54" viewBox="0 0 110 95" fill="none"><defs><linearGradient id="gM" x1="8" y1="60" x2="90" y2="35" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22c55e"/><stop offset="50%" stop-color="#14b8a6"/><stop offset="100%" stop-color="#0284c7"/></linearGradient></defs><path d="M48 6A41 41 0 1 0 48 88V72A25 25 0 1 1 48 22Z" fill="#0095da"/><path d="M22 58L41 39L60 58L79 39" stroke="url(#gM)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="8" y="48" width="19" height="19" rx="3" fill="#22c55e" stroke="#0f172a" stroke-width="2.5"/><rect x="29" y="27" width="19" height="19" rx="3" fill="#10b981" stroke="#0f172a" stroke-width="2.5"/><rect x="50" y="48" width="19" height="19" rx="3" fill="#06b6d4" stroke="#0f172a" stroke-width="2.5"/><rect x="71" y="27" width="19" height="19" rx="3" fill="#0284c7" stroke="#0f172a" stroke-width="2.5"/><rect x="55" y="7" width="14" height="14" rx="2.5" fill="#0095da"/><rect x="76" y="15" width="8" height="8" rx="1.5" fill="#0095da"/><rect x="55" y="34" width="11" height="11" rx="2" fill="#0095da"/><rect x="76" y="55" width="13" height="13" rx="2.5" fill="#0095da"/><rect x="57" y="71" width="14" height="14" rx="2.5" fill="#0095da"/></svg><div><div style="font-size:29px;font-weight:900;color:#0095da;line-height:0.9;letter-spacing:1px;font-family:Arial Black,Impact,sans-serif">GMDP</div><div style="font-size:10px;color:#94a3b8;font-weight:600;letter-spacing:0.3px;margin-top:3px">Internet &amp; Data Service</div></div><div style="width:1px;height:36px;background:#334155;margin:0 8px"></div><div style="display:flex;align-items:center;gap:6px"><svg width="34" height="44" viewBox="0 0 60 80" fill="none"><defs><linearGradient id="fbG" x1="0" y1="80" x2="60" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0284c7"/><stop offset="55%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#26D19B"/></linearGradient></defs><path d="M22 76C12 52 14 20 26 6C34 16 32 48 16 74" stroke="url(#fbG)" stroke-width="4.5" stroke-linecap="round"/><path d="M18 76C26 52 38 22 48 14C52 24 38 54 22 76" stroke="url(#fbG)" stroke-width="4.5" stroke-linecap="round"/><path d="M8 32C22 18 44 16 54 22" stroke="url(#fbG)" stroke-width="3" stroke-linecap="round"/></svg><div><div style="font-size:8.5px;color:#38bdf8;font-weight:700;letter-spacing:.4px;line-height:1">Powered by GMDP</div><div style="font-size:18px;font-weight:900;background:linear-gradient(90deg,#0284c7,#06b6d4,#26D19B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1.2px;line-height:1.05;font-family:Arial Black,sans-serif">FIBERBYTE</div><div style="font-size:8px;color:#38bdf8;font-weight:700;text-align:right;letter-spacing:.3px;line-height:1">Together We Go Far</div></div></div></div><div class="menu"><a href="#layanan">Produk</a><a href="#paket">Broadband</a><a href="#tools">Network Tools</a><a href="#coverage">Jangkauan</a></div><div class="nav-btn"><a class="btn-outline" href="https://wa.me/6282142641334?text=Halo%20Admin%20NOC,%20saya%20ingin%20cek%20tagihan%20E-Billing%20WiFi" target="_blank">E-Billing</a><a class="btn-primary" href="https://wa.me/6282142641334?text=Halo%20NOC%20GMDP,%20saya%20ingin%20daftar%20pasang%20WiFi" target="_blank">Langganan</a></div></nav><section class="hero" style="position:relative;overflow:hidden"><canvas id="hero4d" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0"></canvas><div style="position:relative;z-index:2"><div class="hero-grid"><div><div class="pill">FIBER OPTIC INFRASTRUCTURE &amp; DATA SERVICE</div><h1>Konektivitas Internet <span>Stabil, Cepat &amp; Redundan</span></h1><p>Infrastruktur jaringan Fiber Optic modern dengan latensi rendah, bandwidth simetris 1:1, dukungan NOC 24/7, serta tanpa batasan kuota (No FUP).</p><div class="hero-actions"><a class="btn-primary" href="#paket">Lihat Paket Broadband</a><a class="btn-outline" href="#coverage">Cek Coverage Area</a></div></div><div class="noc-card"><div class="noc-head"><span>NOC REALTIME TELEMETRY</span><span class="status-ok">&#9679; ALL SYSTEMS OPERATIONAL</span></div><div class="noc-stat"><div class="stat-box"><small>CORE UPTIME SLA</small><b>99.9%</b></div><div class="stat-box"><small>JARINGAN INTI</small><b>100% Fiber</b></div><div class="stat-box"><small>ROUTING</small><b>Low Latency</b></div><div class="stat-box"><small>SUPPORT</small><b>NOC 24/7</b></div></div></div></div></div></div></section><section class="sec" id="layanan"><div class="sec-title"><h2>Solusi Infrastruktur &amp; Layanan Internet</h2><p>Dirancang untuk kebutuhan rumah tangga, bisnis UMKM, hingga kemitraan titik distribusi (POP)</p></div><div class="grid-3"><div class="card"><h3>Broadband Fiber Rumah</h3><p>Internet unlimited tanpa FUP dengan kecepatan simetris untuk streaming 4K, kerja remote, dan gaming.</p></div><div class="card"><h3>Dedicated &amp; Bisnis</h3><p>Koneksi dedicated 1:1 untuk kantor, sekolah, dan usaha dengan prioritas penanganan gangguan.</p></div><div class="card"><h3>Kemitraan &amp; POP Lokal</h3><p>Solusi distribusi jaringan RT/RW Net &amp; POP lokal dengan manajemen bandwidth stabil dan terukur.</p></div></div></section><section class="sec" id="smart-home"><div class="sec-title"><h2>Instalasi Fiber Optic Langsung ke Dalam Rumah Anda</h2><p>Kabel fiber ditarik rapi dari tiang ODP terdekat langsung menuju router WiFi di ruang utama untuk koneksi stabil di setiap sudut ruangan</p></div><div style="max-width:880px;margin:0 auto;background:radial-gradient(circle at 50% 35%,rgba(14,165,233,.14),rgba(15,23,42,.95) 75%);border:1px solid #334155;border-radius:24px;padding:24px 16px 14px;box-shadow:0 24px 50px rgba(0,0,0,.45)"><svg viewBox="0 0 820 330" width="100%" fill="none"><style>
+<style>.sec{position:relative;z-index:1;padding:55px 6%;border-bottom:1px solid #1e293b}.sec-title{text-align:center;max-width:650px;margin:0 auto 36px}.sec-title h2{font-size:26px;margin-bottom:8px}.sec-title p{color:#94a3b8;font-size:14px}.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:24px}.card h3{font-size:17px;margin-bottom:8px}.card p{font-size:13px;color:#94a3b8}.pkg{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:26px;position:relative}.pkg.feat{border:2px solid #26D19B}.badge-pop{position:absolute;top:16px;right:16px;background:#26D19B;color:#0f172a;font-size:11px;font-weight:800;padding:3px 10px;border-radius:12px}.pkg .spd{font-size:32px;font-weight:800;color:#0EA5E9;margin:8px 0}.pkg .prc{font-size:20px;font-weight:700;margin-bottom:14px}.pkg ul{list-style:none;font-size:13px;color:#cbd5e1;margin-bottom:20px}.pkg ul li{margin-bottom:7px}.pkg a{display:block;text-align:center;padding:11px;border-radius:8px;background:#0EA5E9;color:#0f172a;font-weight:700;font-size:14px}.tools-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}.tool{background:#1e293b;border:1px solid #334155;padding:16px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;color:#f8fafc;font-size:14px;font-weight:600}.tool span{color:#26D19B;font-size:12px}.cov-box{max-width:600px;margin:0 auto;background:#1e293b;padding:24px;border-radius:14px;border:1px solid #334155}.cov-row{display:flex;gap:10px;margin-top:12px}.cov-row input{flex:1;background:#0f172a;border:1px solid #334155;color:#fff;padding:12px;border-radius:8px}.cov-row button{background:#26D19B;color:#0f172a;border:none;padding:0 20px;border-radius:8px;font-weight:700;cursor:pointer}footer{position:relative;z-index:1;background:rgba(11,17,32,.85);padding:28px 6%;text-align:center;color:#64748b;font-size:13px;}</style><body><div id="splash" style="position:fixed;inset:0;background:#0f172a;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s ease"><style>@keyframes flyL{0%{opacity:0;transform:translate(-65px,0) rotate(-35deg) scale(.4)}70%{opacity:1;transform:translate(4px,0) rotate(3deg) scale(1.03)}100%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}}@keyframes flyT{0%{opacity:0;transform:translate(0,-65px) scale(.3)}100%{opacity:1;transform:translate(0,0) scale(1)}}@keyframes flyB{0%{opacity:0;transform:translate(0,65px) scale(.3)}100%{opacity:1;transform:translate(0,0) scale(1)}}@keyframes flyR{0%{opacity:0;transform:translate(65px,-30px) scale(.3)}100%{opacity:1;transform:translate(0,0) scale(1)}}@keyframes fadeUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}.bp-c{animation:flyL .85s cubic-bezier(.22,1,.36,1) forwards}.bp-1{opacity:0;animation:flyT .65s .2s cubic-bezier(.22,1,.36,1) forwards}.bp-2{opacity:0;animation:flyB .65s .32s cubic-bezier(.22,1,.36,1) forwards}.bp-3{opacity:0;animation:flyT .65s .44s cubic-bezier(.22,1,.36,1) forwards}.bp-4{opacity:0;animation:flyR .65s .56s cubic-bezier(.22,1,.36,1) forwards}.bp-s{opacity:0;animation:flyR .6s .68s cubic-bezier(.22,1,.36,1) forwards}.bp-txt{opacity:0;animation:fadeUp .6s .85s ease forwards}</style><svg width="135" height="116" viewBox="0 0 110 95" fill="none"><defs><linearGradient id="gS" x1="8" y1="60" x2="90" y2="35" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22c55e"/><stop offset="50%" stop-color="#14b8a6"/><stop offset="100%" stop-color="#0284c7"/></linearGradient></defs><path class="bp-c" d="M48 6A41 41 0 1 0 48 88V72A25 25 0 1 1 48 22Z" fill="#0095da"/><path class="bp-2" d="M22 58L41 39L60 58L79 39" stroke="url(#gS)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><rect class="bp-1" x="8" y="48" width="19" height="19" rx="3" fill="#22c55e" stroke="#0f172a" stroke-width="2.5"/><rect class="bp-2" x="29" y="27" width="19" height="19" rx="3" fill="#10b981" stroke="#0f172a" stroke-width="2.5"/><rect class="bp-3" x="50" y="48" width="19" height="19" rx="3" fill="#06b6d4" stroke="#0f172a" stroke-width="2.5"/><rect class="bp-4" x="71" y="27" width="19" height="19" rx="3" fill="#0284c7" stroke="#0f172a" stroke-width="2.5"/><g class="bp-s"><rect x="55" y="7" width="14" height="14" rx="2.5" fill="#0095da"/><rect x="76" y="15" width="8" height="8" rx="1.5" fill="#0095da"/><rect x="55" y="34" width="11" height="11" rx="2" fill="#0095da"/><rect x="76" y="55" width="13" height="13" rx="2.5" fill="#0095da"/><rect x="57" y="71" width="14" height="14" rx="2.5" fill="#0095da"/></g></svg><div class="bp-txt" style="text-align:center"><div style="font-size:36px;font-weight:900;color:#0095da;letter-spacing:2px;margin-top:8px;font-family:Arial Black,sans-serif">GMDP</div><div style="font-size:12px;color:#94a3b8;letter-spacing:1px;margin-top:2px">Internet &amp; Data Service &bull; Fiberbyte</div></div></div><script>setTimeout(function(){var s=document.getElementById("splash");if(s){s.style.opacity="0";setTimeout(function(){s.remove();},600);}},2100);</script><nav><div class="logo" style="display:flex;align-items:center;gap:6px"><svg width="64" height="54" viewBox="0 0 110 95" fill="none"><defs><linearGradient id="gM" x1="8" y1="60" x2="90" y2="35" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22c55e"/><stop offset="50%" stop-color="#14b8a6"/><stop offset="100%" stop-color="#0284c7"/></linearGradient></defs><path d="M48 6A41 41 0 1 0 48 88V72A25 25 0 1 1 48 22Z" fill="#0095da"/><path d="M22 58L41 39L60 58L79 39" stroke="url(#gM)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="8" y="48" width="19" height="19" rx="3" fill="#22c55e" stroke="#0f172a" stroke-width="2.5"/><rect x="29" y="27" width="19" height="19" rx="3" fill="#10b981" stroke="#0f172a" stroke-width="2.5"/><rect x="50" y="48" width="19" height="19" rx="3" fill="#06b6d4" stroke="#0f172a" stroke-width="2.5"/><rect x="71" y="27" width="19" height="19" rx="3" fill="#0284c7" stroke="#0f172a" stroke-width="2.5"/><rect x="55" y="7" width="14" height="14" rx="2.5" fill="#0095da"/><rect x="76" y="15" width="8" height="8" rx="1.5" fill="#0095da"/><rect x="55" y="34" width="11" height="11" rx="2" fill="#0095da"/><rect x="76" y="55" width="13" height="13" rx="2.5" fill="#0095da"/><rect x="57" y="71" width="14" height="14" rx="2.5" fill="#0095da"/></svg><div><div style="font-size:29px;font-weight:900;color:#0095da;line-height:0.9;letter-spacing:1px;font-family:Arial Black,Impact,sans-serif">GMDP</div><div style="font-size:10px;color:#94a3b8;font-weight:600;letter-spacing:0.3px;margin-top:3px">Internet &amp; Data Service</div></div><div style="width:1px;height:36px;background:#334155;margin:0 8px"></div><div style="display:flex;align-items:center;gap:6px"><svg width="34" height="44" viewBox="0 0 60 80" fill="none"><defs><linearGradient id="fbG" x1="0" y1="80" x2="60" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0284c7"/><stop offset="55%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#26D19B"/></linearGradient></defs><path d="M22 76C12 52 14 20 26 6C34 16 32 48 16 74" stroke="url(#fbG)" stroke-width="4.5" stroke-linecap="round"/><path d="M18 76C26 52 38 22 48 14C52 24 38 54 22 76" stroke="url(#fbG)" stroke-width="4.5" stroke-linecap="round"/><path d="M8 32C22 18 44 16 54 22" stroke="url(#fbG)" stroke-width="3" stroke-linecap="round"/></svg><div><div style="font-size:8.5px;color:#38bdf8;font-weight:700;letter-spacing:.4px;line-height:1">Powered by GMDP</div><div style="font-size:18px;font-weight:900;background:linear-gradient(90deg,#0284c7,#06b6d4,#26D19B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1.2px;line-height:1.05;font-family:Arial Black,sans-serif">FIBERBYTE</div><div style="font-size:8px;color:#38bdf8;font-weight:700;text-align:right;letter-spacing:.3px;line-height:1">Together We Go Far</div></div></div></div><div class="menu"><a href="#layanan">Produk</a><a href="#paket">Broadband</a><a href="#tools">Network Tools</a><a href="#coverage">Jangkauan</a></div><div class="nav-btn"><a class="btn-outline" href="https://wa.me/6282142641334?text=Halo%20Admin%20NOC,%20saya%20ingin%20cek%20tagihan%20E-Billing%20WiFi" target="_blank">E-Billing</a><a class="btn-primary" href="https://wa.me/6282142641334?text=Halo%20NOC%20GMDP,%20saya%20ingin%20daftar%20pasang%20WiFi" target="_blank">Langganan</a>
+</div></nav>
+<div class="nav-icons">
+  <button type="button" class="icon-btn" onclick="toggleLang()" title="Bahasa">&#127760;</button>
+  <button type="button" class="icon-btn" id="hbBtn" onclick="toggleMenu(this)" title="Menu">&#9776;</button>
+</div>
+<div id="mobileDrawer">
+  <a href="#layanan" onclick="tutupMenu()"><span>&#128246; Produk &amp; Solusi</span><span>&#8250;</span></a>
+  <a href="#paket" onclick="tutupMenu()"><span>&#128640; Paket Broadband Fiber</span><span>&#8250;</span></a>
+  <a href="#tools" onclick="tutupMenu()"><span>&#128736; Network Tools &amp; NOC</span><span>&#8250;</span></a>
+  <a href="#coverage" onclick="tutupMenu()"><span>&#128506; Peta Jangkauan ODP</span><span>&#8250;</span></a>
+  <a href="https://wa.me" target="_blank" onclick="tutupMenu()"><span>&#128179; E-Billing Pelanggan</span><span>&#8250;</span></a>
+  <a href="https://wa.me" target="_blank" style="background:linear-gradient(135deg,#26D19B,#0EA5E9);color:#0f172a!important;border:none" onclick="tutupMenu()"><span>&#9889; Daftar Langganan Sekarang</span><span>&#8250;</span></a>
+</div>
+<section class="hero" style="position:relative;overflow:hidden"><canvas id="hero4d" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0"></canvas><div style="position:relative;z-index:2"><div class="hero-grid"><div><div class="pill">FIBER OPTIC INFRASTRUCTURE &amp; DATA SERVICE</div><h1>Konektivitas Internet <span>Stabil, Cepat &amp; Redundan</span></h1><p>Infrastruktur jaringan Fiber Optic modern dengan latensi rendah, bandwidth simetris 1:1, dukungan NOC 24/7, serta tanpa batasan kuota (No FUP).</p><div class="hero-actions"><a class="btn-primary" href="#paket">Lihat Paket Broadband</a><a class="btn-outline" href="#coverage">Cek Coverage Area</a></div></div><div class="noc-card"><div class="noc-head"><span>NOC REALTIME TELEMETRY</span><span class="status-ok">&#9679; ALL SYSTEMS OPERATIONAL</span></div><div class="noc-stat"><div class="stat-box"><small>CORE UPTIME SLA</small><b>99.9%</b></div><div class="stat-box"><small>JARINGAN INTI</small><b>100% Fiber</b></div><div class="stat-box"><small>ROUTING</small><b>Low Latency</b></div><div class="stat-box"><small>SUPPORT</small><b>NOC 24/7</b></div></div></div></div></div></div></section><section class="sec" id="layanan"><div class="sec-title"><h2>Solusi Infrastruktur &amp; Layanan Internet</h2><p>Dirancang untuk kebutuhan rumah tangga, bisnis UMKM, hingga kemitraan titik distribusi (POP)</p></div><div class="grid-3"><div class="card"><h3>Broadband Fiber Rumah</h3><p>Internet unlimited tanpa FUP dengan kecepatan simetris untuk streaming 4K, kerja remote, dan gaming.</p></div><div class="card"><h3>Dedicated &amp; Bisnis</h3><p>Koneksi dedicated 1:1 untuk kantor, sekolah, dan usaha dengan prioritas penanganan gangguan.</p></div><div class="card"><h3>Kemitraan &amp; POP Lokal</h3><p>Solusi distribusi jaringan RT/RW Net &amp; POP lokal dengan manajemen bandwidth stabil dan terukur.</p></div></div></section><section class="sec" id="smart-home"><div class="sec-title"><h2>Instalasi Fiber Optic Langsung ke Dalam Rumah Anda</h2><p>Kabel fiber ditarik rapi dari tiang ODP terdekat langsung menuju router WiFi di ruang utama untuk koneksi stabil di setiap sudut ruangan</p></div><div style="max-width:880px;margin:0 auto;background:radial-gradient(circle at 50% 35%,rgba(14,165,233,.14),rgba(15,23,42,.95) 75%);border:1px solid #334155;border-radius:24px;padding:24px 16px 14px;box-shadow:0 24px 50px rgba(0,0,0,.45)"><svg viewBox="0 0 820 330" width="100%" fill="none"><style>
 .opt-pulse{stroke-dasharray:50 250;animation:optRun 1.9s linear infinite}@keyframes optRun{to{stroke-dashoffset:-300}}
 .wifi-wave{animation:wWave 2s ease-out infinite}@keyframes wWave{0%{opacity:.9;transform:scale(.7)}100%{opacity:0;transform:scale(1.4)}}
 .cheer-arm{transform-origin:277px 250px;animation:cheer 2.4s ease-in-out infinite}@keyframes cheer{0%,35%,100%{transform:translateY(10px) scaleY(.65)}50%,80%{transform:translateY(-7px) scaleY(1)}}
@@ -218,3 +274,134 @@ function toggleMenu(btn){var n=document.querySelector("header nav");n.classList.
 document.querySelectorAll("header nav a").forEach(a=>a.addEventListener("click",()=>{var n=document.querySelector("header nav");if(n)n.classList.remove("open");var b=document.getElementById("hbBtn");if(b)b.innerHTML="&#9776;";}));
 function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'id',includedLanguages:'id,en,ar,ja,ko,zh-CN,ms,fr,de,es,ru,hi',autoDisplay:false},'google_translate_element');}
 </script><script src="https://google.com"></script></body></html>
+
+<script>
+function toggleLang(){
+  var d=document.getElementById("langDrop");
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+  d.style.display=(d.style.display==="block")?"none":"block";
+}
+function toggleMenu(btn){
+  var d=document.getElementById("langDrop");
+  if(d) d.style.display="none";
+  var m=document.getElementById("mobileDrawer");
+  m.classList.toggle("open");
+  btn.innerHTML=m.classList.contains("open")?"&#10005;":"&#9776;";
+}
+function tutupMenu(){
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+}
+function setBahasa(lang){
+  document.getElementById("langDrop").style.display="none";
+  if(lang==="id"){
+    document.cookie="googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    location.reload();
+    return;
+  }
+  document.cookie="googtrans=/id/"+lang+"; path=/;";
+  var sel=document.querySelector(".goog-te-combo");
+  if(sel){ sel.value=lang; sel.dispatchEvent(new Event("change")); }
+  else { location.reload(); }
+}
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({pageLanguage:"id",autoDisplay:false},"google_translate_element");
+}
+</script>
+<script src="https://google.com"></script>
+
+<script>
+function toggleLang(){
+  var d=document.getElementById("langDrop");
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+  d.style.display=(d.style.display==="block")?"none":"block";
+}
+function toggleMenu(btn){
+  var d=document.getElementById("langDrop");
+  if(d) d.style.display="none";
+  var m=document.getElementById("mobileDrawer");
+  m.classList.toggle("open");
+  btn.innerHTML=m.classList.contains("open")?"&#10005;":"&#9776;";
+}
+function tutupMenu(){
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+}
+function setBahasa(lang){
+  document.getElementById("langDrop").style.display="none";
+  if(lang==="id"){
+    document.cookie="googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    location.reload();
+    return;
+  }
+  document.cookie="googtrans=/id/"+lang+"; path=/;";
+  var sel=document.querySelector(".goog-te-combo");
+  if(sel){ sel.value=lang; sel.dispatchEvent(new Event("change")); }
+  else { location.reload(); }
+}
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({pageLanguage:"id",autoDisplay:false},"google_translate_element");
+}
+</script>
+<script src="https://google.com"></script>
+
+<script>
+function toggleLang(){
+  var d=document.getElementById("langDrop");
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+  d.style.display=(d.style.display==="block")?"none":"block";
+}
+function toggleMenu(btn){
+  var d=document.getElementById("langDrop");
+  if(d) d.style.display="none";
+  var m=document.getElementById("mobileDrawer");
+  m.classList.toggle("open");
+  btn.innerHTML=m.classList.contains("open")?"&#10005;":"&#9776;";
+}
+function tutupMenu(){
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+}
+function setBahasa(lang){
+  document.getElementById("langDrop").style.display="none";
+  if(lang==="id"){
+    document.cookie="googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie="googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=."+location.hostname;
+    location.reload();
+    return;
+  }
+  document.cookie="googtrans=/id/"+lang+"; path=/;";
+  document.cookie="googtrans=/id/"+lang+"; path=/; domain=."+location.hostname;
+  var tries=0;
+  var t=setInterval(function(){
+    var sel=document.querySelector(".goog-te-combo");
+    if(sel){
+      sel.value=lang;
+      sel.dispatchEvent(new Event("change"));
+      clearInterval(t);
+    } else if(++tries>15){
+      clearInterval(t);
+      location.reload();
+    }
+  },200);
+}
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({pageLanguage:"id",autoDisplay:false},"google_translate_element");
+}
+</script>
+<script src="https://google.com" async></script>
