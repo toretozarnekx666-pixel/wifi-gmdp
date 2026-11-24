@@ -1,0 +1,407 @@
+
+<style id="hpMulusCSS">
+.nav-icons{display:inline-flex;align-items:center;gap:8px;margin-left:auto}
+.icon-btn{background:#1e293b;border:1px solid #334155;color:#38bdf8;width:38px;height:38px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;flex-shrink:0}
+#hbBtn{display:none}
+#langDrop{display:none;position:fixed;top:66px;right:16px;background:#0f172a;border:1px solid #38bdf8;border-radius:14px;padding:10px;z-index:999999;box-shadow:0 15px 35px rgba(0,0,0,.9);width:220px;max-height:340px;overflow-y:auto}
+.lang-opt{display:flex;align-items:center;gap:10px;width:100%;background:transparent;border:none;color:#f8fafc;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-align:left}
+.lang-opt:active,.lang-opt:hover{background:rgba(38,209,155,.18);color:#26D19B}
+#mobileDrawer{display:none;width:100%;flex-basis:100%;flex-direction:column;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #1e293b}
+#mobileDrawer.open{display:flex!important}
+#mobileDrawer a{display:flex;align-items:center;justify-content:space-between;width:100%;box-sizing:border-box;background:#1e293b;border:1px solid #334155;padding:13px 16px;border-radius:12px;color:#f8fafc!important;text-decoration:none;font-size:14px;font-weight:700}
+.goog-te-banner-frame.skiptranslate,.goog-te-gadget-icon{display:none!important}
+body{top:0!important}
+@media(max-width:768px){
+  /* Ringankan GPU HP agar scroll & refresh mulus tanpa patah-patah */
+  *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;animation-duration:0.01ms!important;transition-duration:0.12s!important}
+  canvas{display:none!important}
+  /* Rapikan header HP: hanya Logo kiri + tombol 🌐 & ☰ kanan */
+  header{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;justify-content:space-between!important;align-items:center!important;padding:12px 4%!important;gap:0!important}
+  header nav, header > div:has(a[href*="ebilling"]), header > div:has(a[href*="#paket"]), header > a[href*="ebilling"], header > a[href*="#paket"]{display:none!important}
+  #hbBtn{display:inline-flex!important}
+}
+</style>
+
+<div id="langDrop">
+  <div style="font-size:11px;font-weight:800;color:#26D19B;padding:4px 8px 8px;border-bottom:1px solid #1e293b;margin-bottom:4px">&#127760; Pilih Bahasa / Language</div>
+  <button type="button" class="lang-opt" onclick="setBahasa('id')">&#127470;&#127465; Indonesia (Asli)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('en')">&#127468;&#127463; English (Global)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('ar')">&#127480;&#127462; &#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577; (Arabic)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('ja')">&#127471;&#127477; &#26085;&#26412;&#35486; (Japanese)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('ko')">&#127472;&#127479; &#54620;&#44397;&#50612; (Korean)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('zh-CN')">&#127464;&#127475; &#20013;&#25991; (Mandarin)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('ms')">&#127474;&#127486; Bahasa Melayu</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('fr')">&#127467;&#127479; Fran&ccedil;ais (French)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('de')">&#127465;&#127466; Deutsch (German)</button>
+  <button type="button" class="lang-opt" onclick="setBahasa('es')">&#127466;&#127480; Espa&ntilde;ol (Spanish)</button>
+  <div id="google_translate_element" style="display:none"></div>
+</div>
+
+
+
+
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 94 90'%3E%3Cpath d='M48 4A43 43 0 1 0 48 90V72A25 25 0 1 1 48 22Z' fill='%230095da'/%3E%3Crect x='6' y='47' width='21' height='21' rx='3' fill='%2322c55e'/%3E%3Crect x='28' y='25' width='21' height='21' rx='3' fill='%2310b981'/%3E%3Crect x='50' y='47' width='21' height='21' rx='3' fill='%2306b6d4'/%3E%3Crect x='72' y='25' width='21' height='21' rx='3' fill='%230284c7'/%3E%3Crect x='54' y='4' width='17' height='17' rx='3' fill='%230095da'/%3E%3Crect x='75' y='54' width='17' height='17' rx='3' fill='%230095da'/%3E%3Crect x='55' y='72' width='17' height='17' rx='3' fill='%230095da'/%3E%3C/svg%3E"><title>GMDP - Internet &amp; Data Service — Internet &amp; Data Infrastructure Service</title><style>*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Segoe UI,Roboto,sans-serif}body{background:#0f172a;color:#f8fafc;line-height:1.6}a{text-decoration:none}nav{background:rgba(15,23,42,.95);padding:14px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1e293b;position:relative;top:0;z-index:100}.logo{font-size:22px;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px}.logo-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#0EA5E9,#26D19B)}.logo span{color:#0EA5E9}.menu{display:flex;gap:20px;font-size:14px}.menu a{color:#cbd5e1}.menu a:hover{color:#0EA5E9}.nav-btn{display:flex;gap:10px}.btn-outline{border:1px solid #0EA5E9;color:#0EA5E9;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600}.btn-primary{background:linear-gradient(135deg,#0EA5E9,#26D19B);color:#0f172a;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:700}.hero{padding:65px 6% 55px;border-bottom:1px solid rgba(51,65,85,.5)}.hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:36px;align-items:center}.pill{display:inline-block;background:rgba(14,165,233,.15);border:1px solid rgba(14,165,233,.4);color:#38bdf8;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:14px}.hero h1{font-size:36px;line-height:1.2;font-weight:800;margin-bottom:14px}.hero h1 span{background:linear-gradient(90deg,#0EA5E9,#26D19B);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero p{color:#94a3b8;font-size:15px;margin-bottom:24px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.noc-card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:24px}.noc-head{display:flex;justify-content:space-between;border-bottom:1px solid #334155;padding-bottom:12px;margin-bottom:16px;font-size:12px;color:#94a3b8}.status-ok{color:#26D19B;font-weight:700}.noc-stat{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat-box{background:#0f172a;padding:14px;border-radius:10px;border:1px solid #334155}.stat-box small{color:#64748b;font-size:11px;display:block}.stat-box b{font-size:18px;color:#f8fafc}@media(max-width:768px){header{flex-direction:column;gap:12px;padding:14px 4%}nav{flex-wrap:wrap;justify-content:center;gap:8px}.hero-grid{grid-template-columns:1fr!important}.grid-3{grid-template-columns:1fr!important}}
+.nav-icons{display:flex;align-items:center;gap:10px}
+.icon-btn{background:rgba(30,41,59,.9);border:1px solid #334155;color:#38bdf8;width:38px;height:38px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:.25s}
+.icon-btn:hover{border-color:#26D19B;color:#26D19B;transform:scale(1.06)}
+#hbBtn{display:none}
+#langDrop{display:none;position:absolute;top:64px;right:6%;background:#0f172a;border:1px solid #38bdf8;border-radius:14px;padding:12px;z-index:9999;box-shadow:0 15px 35px rgba(0,0,0,.6);min-width:190px}
+.goog-te-banner-frame.skiptranslate,.goog-te-gadget-icon{display:none!important}
+body{top:0!important}
+.goog-te-combo{background:#1e293b;color:#f8fafc;border:1px solid #334155;padding:8px 10px;border-radius:8px;width:100%;font-size:13px;outline:none}
+@media(max-width:768px){
+  header{flex-direction:row!important;flex-wrap:wrap;justify-content:space-between!important;align-items:center!important}
+  #hbBtn{display:inline-flex!important}
+  header nav{display:none;width:100%;flex-direction:column;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid #1e293b}
+  header nav.open{display:flex!important}
+  header nav a{display:flex;align-items:center;gap:10px;width:100%;background:#1e293b;border:1px solid #334155;padding:12px 16px;border-radius:12px;font-size:14px;font-weight:700;color:#f8fafc!important;text-align:left}
+  header nav a:hover{border-color:#26D19B;background:rgba(38,209,155,.12)}
+  #langDrop{right:4%;top:62px}
+}
+</style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script></head>
+<style>.sec{position:relative;z-index:1;padding:55px 6%;border-bottom:1px solid #1e293b}.sec-title{text-align:center;max-width:650px;margin:0 auto 36px}.sec-title h2{font-size:26px;margin-bottom:8px}.sec-title p{color:#94a3b8;font-size:14px}.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:24px}.card h3{font-size:17px;margin-bottom:8px}.card p{font-size:13px;color:#94a3b8}.pkg{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:26px;position:relative}.pkg.feat{border:2px solid #26D19B}.badge-pop{position:absolute;top:16px;right:16px;background:#26D19B;color:#0f172a;font-size:11px;font-weight:800;padding:3px 10px;border-radius:12px}.pkg .spd{font-size:32px;font-weight:800;color:#0EA5E9;margin:8px 0}.pkg .prc{font-size:20px;font-weight:700;margin-bottom:14px}.pkg ul{list-style:none;font-size:13px;color:#cbd5e1;margin-bottom:20px}.pkg ul li{margin-bottom:7px}.pkg a{display:block;text-align:center;padding:11px;border-radius:8px;background:#0EA5E9;color:#0f172a;font-weight:700;font-size:14px}.tools-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}.tool{background:#1e293b;border:1px solid #334155;padding:16px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;color:#f8fafc;font-size:14px;font-weight:600}.tool span{color:#26D19B;font-size:12px}.cov-box{max-width:600px;margin:0 auto;background:#1e293b;padding:24px;border-radius:14px;border:1px solid #334155}.cov-row{display:flex;gap:10px;margin-top:12px}.cov-row input{flex:1;background:#0f172a;border:1px solid #334155;color:#fff;padding:12px;border-radius:8px}.cov-row button{background:#26D19B;color:#0f172a;border:none;padding:0 20px;border-radius:8px;font-weight:700;cursor:pointer}footer{position:relative;z-index:1;background:rgba(11,17,32,.85);padding:28px 6%;text-align:center;color:#64748b;font-size:13px;}</style><body><div id="splash" style="position:fixed;inset:0;background:#0f172a;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s ease"><style>@keyframes flyL{0%{opacity:0;transform:translate(-65px,0) rotate(-35deg) scale(.4)}70%{opacity:1;transform:translate(4px,0) rotate(3deg) scale(1.03)}100%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}}@keyframes flyT{0%{opacity:0;transform:translate(0,-65px) scale(.3)}100%{opacity:1;transform:translate(0,0) scale(1)}}@keyframes flyB{0%{opacity:0;transform:translate(0,65px) scale(.3)}100%{opacity:1;transform:translate(0,0) scale(1)}}@keyframes flyR{0%{opacity:0;transform:translate(65px,-30px) scale(.3)}100%{opacity:1;transform:translate(0,0) scale(1)}}@keyframes fadeUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}.bp-c{animation:flyL .85s cubic-bezier(.22,1,.36,1) forwards}.bp-1{opacity:0;animation:flyT .65s .2s cubic-bezier(.22,1,.36,1) forwards}.bp-2{opacity:0;animation:flyB .65s .32s cubic-bezier(.22,1,.36,1) forwards}.bp-3{opacity:0;animation:flyT .65s .44s cubic-bezier(.22,1,.36,1) forwards}.bp-4{opacity:0;animation:flyR .65s .56s cubic-bezier(.22,1,.36,1) forwards}.bp-s{opacity:0;animation:flyR .6s .68s cubic-bezier(.22,1,.36,1) forwards}.bp-txt{opacity:0;animation:fadeUp .6s .85s ease forwards}</style><svg width="135" height="116" viewBox="0 0 110 95" fill="none"><defs><linearGradient id="gS" x1="8" y1="60" x2="90" y2="35" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22c55e"/><stop offset="50%" stop-color="#14b8a6"/><stop offset="100%" stop-color="#0284c7"/></linearGradient></defs><path class="bp-c" d="M48 6A41 41 0 1 0 48 88V72A25 25 0 1 1 48 22Z" fill="#0095da"/><path class="bp-2" d="M22 58L41 39L60 58L79 39" stroke="url(#gS)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><rect class="bp-1" x="8" y="48" width="19" height="19" rx="3" fill="#22c55e" stroke="#0f172a" stroke-width="2.5"/><rect class="bp-2" x="29" y="27" width="19" height="19" rx="3" fill="#10b981" stroke="#0f172a" stroke-width="2.5"/><rect class="bp-3" x="50" y="48" width="19" height="19" rx="3" fill="#06b6d4" stroke="#0f172a" stroke-width="2.5"/><rect class="bp-4" x="71" y="27" width="19" height="19" rx="3" fill="#0284c7" stroke="#0f172a" stroke-width="2.5"/><g class="bp-s"><rect x="55" y="7" width="14" height="14" rx="2.5" fill="#0095da"/><rect x="76" y="15" width="8" height="8" rx="1.5" fill="#0095da"/><rect x="55" y="34" width="11" height="11" rx="2" fill="#0095da"/><rect x="76" y="55" width="13" height="13" rx="2.5" fill="#0095da"/><rect x="57" y="71" width="14" height="14" rx="2.5" fill="#0095da"/></g></svg><div class="bp-txt" style="text-align:center"><div style="font-size:36px;font-weight:900;color:#0095da;letter-spacing:2px;margin-top:8px;font-family:Arial Black,sans-serif">GMDP</div><div style="font-size:12px;color:#94a3b8;letter-spacing:1px;margin-top:2px">Internet &amp; Data Service &bull; Fiberbyte</div></div></div><script>setTimeout(function(){var s=document.getElementById("splash");if(s){s.style.opacity="0";setTimeout(function(){s.remove();},600);}},2100);</script><nav><div class="logo" style="display:flex;align-items:center;gap:6px"><svg width="64" height="54" viewBox="0 0 110 95" fill="none"><defs><linearGradient id="gM" x1="8" y1="60" x2="90" y2="35" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22c55e"/><stop offset="50%" stop-color="#14b8a6"/><stop offset="100%" stop-color="#0284c7"/></linearGradient></defs><path d="M48 6A41 41 0 1 0 48 88V72A25 25 0 1 1 48 22Z" fill="#0095da"/><path d="M22 58L41 39L60 58L79 39" stroke="url(#gM)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="8" y="48" width="19" height="19" rx="3" fill="#22c55e" stroke="#0f172a" stroke-width="2.5"/><rect x="29" y="27" width="19" height="19" rx="3" fill="#10b981" stroke="#0f172a" stroke-width="2.5"/><rect x="50" y="48" width="19" height="19" rx="3" fill="#06b6d4" stroke="#0f172a" stroke-width="2.5"/><rect x="71" y="27" width="19" height="19" rx="3" fill="#0284c7" stroke="#0f172a" stroke-width="2.5"/><rect x="55" y="7" width="14" height="14" rx="2.5" fill="#0095da"/><rect x="76" y="15" width="8" height="8" rx="1.5" fill="#0095da"/><rect x="55" y="34" width="11" height="11" rx="2" fill="#0095da"/><rect x="76" y="55" width="13" height="13" rx="2.5" fill="#0095da"/><rect x="57" y="71" width="14" height="14" rx="2.5" fill="#0095da"/></svg><div><div style="font-size:29px;font-weight:900;color:#0095da;line-height:0.9;letter-spacing:1px;font-family:Arial Black,Impact,sans-serif">GMDP</div><div style="font-size:10px;color:#94a3b8;font-weight:600;letter-spacing:0.3px;margin-top:3px">Internet &amp; Data Service</div></div><div style="width:1px;height:36px;background:#334155;margin:0 8px"></div><div style="display:flex;align-items:center;gap:6px"><svg width="34" height="44" viewBox="0 0 60 80" fill="none"><defs><linearGradient id="fbG" x1="0" y1="80" x2="60" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0284c7"/><stop offset="55%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#26D19B"/></linearGradient></defs><path d="M22 76C12 52 14 20 26 6C34 16 32 48 16 74" stroke="url(#fbG)" stroke-width="4.5" stroke-linecap="round"/><path d="M18 76C26 52 38 22 48 14C52 24 38 54 22 76" stroke="url(#fbG)" stroke-width="4.5" stroke-linecap="round"/><path d="M8 32C22 18 44 16 54 22" stroke="url(#fbG)" stroke-width="3" stroke-linecap="round"/></svg><div><div style="font-size:8.5px;color:#38bdf8;font-weight:700;letter-spacing:.4px;line-height:1">Powered by GMDP</div><div style="font-size:18px;font-weight:900;background:linear-gradient(90deg,#0284c7,#06b6d4,#26D19B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1.2px;line-height:1.05;font-family:Arial Black,sans-serif">FIBERBYTE</div><div style="font-size:8px;color:#38bdf8;font-weight:700;text-align:right;letter-spacing:.3px;line-height:1">Together We Go Far</div></div></div></div><div class="menu"><a href="#layanan">Produk</a><a href="#paket">Broadband</a><a href="#tools">Network Tools</a><a href="#coverage">Jangkauan</a></div><div class="nav-btn"><a class="btn-outline" href="https://wa.me/6282142641334?text=Halo%20Admin%20NOC,%20saya%20ingin%20cek%20tagihan%20E-Billing%20WiFi" target="_blank">E-Billing</a><a class="btn-primary" href="https://wa.me/6282142641334?text=Halo%20NOC%20GMDP,%20saya%20ingin%20daftar%20pasang%20WiFi" target="_blank">Langganan</a>
+</div></nav>
+<div class="nav-icons">
+  <button type="button" class="icon-btn" onclick="toggleLang()" title="Bahasa">&#127760;</button>
+  <button type="button" class="icon-btn" id="hbBtn" onclick="toggleMenu(this)" title="Menu">&#9776;</button>
+</div>
+<div id="mobileDrawer">
+  <a href="#layanan" onclick="tutupMenu()"><span>&#128246; Produk &amp; Solusi</span><span>&#8250;</span></a>
+  <a href="#paket" onclick="tutupMenu()"><span>&#128640; Paket Broadband Fiber</span><span>&#8250;</span></a>
+  <a href="#tools" onclick="tutupMenu()"><span>&#128736; Network Tools &amp; NOC</span><span>&#8250;</span></a>
+  <a href="#coverage" onclick="tutupMenu()"><span>&#128506; Peta Jangkauan ODP</span><span>&#8250;</span></a>
+  <a href="https://wa.me" target="_blank" onclick="tutupMenu()"><span>&#128179; E-Billing Pelanggan</span><span>&#8250;</span></a>
+  <a href="https://wa.me" target="_blank" style="background:linear-gradient(135deg,#26D19B,#0EA5E9);color:#0f172a!important;border:none" onclick="tutupMenu()"><span>&#9889; Daftar Langganan Sekarang</span><span>&#8250;</span></a>
+</div>
+<section class="hero" style="position:relative;overflow:hidden"><canvas id="hero4d" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0"></canvas><div style="position:relative;z-index:2"><div class="hero-grid"><div><div class="pill">FIBER OPTIC INFRASTRUCTURE &amp; DATA SERVICE</div><h1>Konektivitas Internet <span>Stabil, Cepat &amp; Redundan</span></h1><p>Infrastruktur jaringan Fiber Optic modern dengan latensi rendah, bandwidth simetris 1:1, dukungan NOC 24/7, serta tanpa batasan kuota (No FUP).</p><div class="hero-actions"><a class="btn-primary" href="#paket">Lihat Paket Broadband</a><a class="btn-outline" href="#coverage">Cek Coverage Area</a></div></div><div class="noc-card"><div class="noc-head"><span>NOC REALTIME TELEMETRY</span><span class="status-ok">&#9679; ALL SYSTEMS OPERATIONAL</span></div><div class="noc-stat"><div class="stat-box"><small>CORE UPTIME SLA</small><b>99.9%</b></div><div class="stat-box"><small>JARINGAN INTI</small><b>100% Fiber</b></div><div class="stat-box"><small>ROUTING</small><b>Low Latency</b></div><div class="stat-box"><small>SUPPORT</small><b>NOC 24/7</b></div></div></div></div></div></div></section><section class="sec" id="layanan"><div class="sec-title"><h2>Solusi Infrastruktur &amp; Layanan Internet</h2><p>Dirancang untuk kebutuhan rumah tangga, bisnis UMKM, hingga kemitraan titik distribusi (POP)</p></div><div class="grid-3"><div class="card"><h3>Broadband Fiber Rumah</h3><p>Internet unlimited tanpa FUP dengan kecepatan simetris untuk streaming 4K, kerja remote, dan gaming.</p></div><div class="card"><h3>Dedicated &amp; Bisnis</h3><p>Koneksi dedicated 1:1 untuk kantor, sekolah, dan usaha dengan prioritas penanganan gangguan.</p></div><div class="card"><h3>Kemitraan &amp; POP Lokal</h3><p>Solusi distribusi jaringan RT/RW Net &amp; POP lokal dengan manajemen bandwidth stabil dan terukur.</p></div></div></section><section class="sec" id="smart-home"><div class="sec-title"><h2>Instalasi Fiber Optic Langsung ke Dalam Rumah Anda</h2><p>Kabel fiber ditarik rapi dari tiang ODP terdekat langsung menuju router WiFi di ruang utama untuk koneksi stabil di setiap sudut ruangan</p></div><div style="max-width:880px;margin:0 auto;background:radial-gradient(circle at 50% 35%,rgba(14,165,233,.14),rgba(15,23,42,.95) 75%);border:1px solid #334155;border-radius:24px;padding:24px 16px 14px;box-shadow:0 24px 50px rgba(0,0,0,.45)"><svg viewBox="0 0 820 330" width="100%" fill="none"><style>
+.opt-pulse{stroke-dasharray:50 250;animation:optRun 1.9s linear infinite}@keyframes optRun{to{stroke-dashoffset:-300}}
+.wifi-wave{animation:wWave 2s ease-out infinite}@keyframes wWave{0%{opacity:.9;transform:scale(.7)}100%{opacity:0;transform:scale(1.4)}}
+.cheer-arm{transform-origin:277px 250px;animation:cheer 2.4s ease-in-out infinite}@keyframes cheer{0%,35%,100%{transform:translateY(10px) scaleY(.65)}50%,80%{transform:translateY(-7px) scaleY(1)}}
+.confetti{animation:confFly 2.4s ease-in-out infinite}@keyframes confFly{0%,35%,100%{opacity:0;transform:translateY(6px)}55%,80%{opacity:1;transform:translateY(-8px)}}
+.head-turn{transform-origin:440px 232px;animation:lookBack 3s ease-in-out infinite}@keyframes lookBack{0%,30%,100%{transform:rotate(0deg) translateX(0)}48%,78%{transform:rotate(14deg) translateX(8px)}}
+.eye-blink{transform-origin:608px 238px;animation:blink 3.5s infinite}@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.type-hand{animation:typing .28s ease-in-out infinite alternate}@keyframes typing{0%{transform:translateY(0)}100%{transform:translateY(-3.5px)}}
+.mail-pop{animation:mailUp 2.5s ease-in-out infinite}@keyframes mailUp{0%,20%{opacity:0;transform:translate(0,8px) scale(.7)}45%,80%{opacity:1;transform:translate(5px,-5px) scale(1)}100%{opacity:0;transform:translate(10px,-14px) scale(.8)}}
+.steam{animation:steamUp 2s ease-in-out infinite}@keyframes steamUp{0%{opacity:0;transform:translateY(3px)}50%{opacity:.9;transform:translateY(-3px)}100%{opacity:0;transform:translateY(-8px)}}
+.ball-move{animation:ballRun 2.4s ease-in-out infinite}@keyframes ballRun{0%,100%{transform:translateX(0)}50%{transform:translateX(38px)}}
+</style><rect x="65" y="298" width="690" height="7" rx="3.5" fill="#334155"/><path d="M135 298 A22 14 0 0 1 178 298 Z" fill="#26D19B"/><rect x="116" y="135" width="7" height="163" rx="3" fill="#64748b"/><rect x="103" y="132" width="33" height="6" rx="3" fill="#94a3b8"/><rect x="110" y="146" width="19" height="26" rx="4" fill="#0EA5E9" stroke="#38bdf8" stroke-width="1.5"/><rect x="195" y="165" width="490" height="133" fill="#1e293b" stroke="#334155" stroke-width="2"/><rect x="205" y="172" width="152" height="126" fill="#0f172a"/><rect x="363" y="172" width="154" height="126" fill="#131c31"/><rect x="523" y="172" width="152" height="126" fill="#0f172a"/><rect x="550" y="96" width="16" height="44" rx="2" fill="#0284c7"/><rect x="546" y="92" width="24" height="6" rx="2" fill="#38bdf8"/><polygon points="175,168 440,52 705,168" fill="url(#roofG)"/><defs><linearGradient id="roofG" x1="175" y1="52" x2="705" y2="168" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient></defs><circle cx="440" cy="118" r="22" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/><line x1="440" y1="98" x2="440" y2="138" stroke="#38bdf8" stroke-width="2"/><line x1="420" y1="118" x2="460" y2="118" stroke="#38bdf8" stroke-width="2"/><rect x="228" y="198" width="98" height="56" rx="6" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/><rect x="234" y="204" width="86" height="44" rx="3" fill="#059669"/><line x1="277" y1="204" x2="277" y2="248" stroke="#34d399" stroke-width="1.5"/><circle cx="277" cy="226" r="8" stroke="#34d399" stroke-width="1.5"/><circle class="ball-move" cx="255" cy="226" r="3.5" fill="#fff"/><rect x="214" y="256" width="126" height="42" rx="10" fill="#334155"/><rect x="230" y="264" width="94" height="34" rx="6" fill="#475569"/><g class="confetti"><rect x="246" y="185" width="5" height="5" fill="#f43f5e" transform="rotate(20 246 185)"/><rect x="275" y="180" width="5" height="5" fill="#facc15"/><rect x="304" y="186" width="5" height="5" fill="#26D19B" transform="rotate(-15 304 186)"/></g><g class="cheer-arm"><rect x="252" y="210" width="8" height="36" rx="4" fill="#f8fafc"/><rect x="294" y="210" width="8" height="36" rx="4" fill="#f8fafc"/></g><circle cx="277" cy="232" r="14" fill="#38bdf8"/><path d="M261 232 A16 16 0 0 1 293 232 Z" fill="#0284c7"/><rect x="275" y="220" width="4" height="10" rx="2" fill="#26D19B"/><rect x="256" y="248" width="42" height="22" rx="8" fill="#0EA5E9"/><rect x="392" y="196" width="96" height="58" rx="6" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/><rect x="398" y="202" width="84" height="46" rx="3" fill="#0c4a6e"/><polyline points="405,236 422,222 438,228 456,210 474,216" stroke="#26D19B" stroke-width="2.5" fill="none"/><rect x="378" y="262" width="124" height="6" rx="3" fill="#475569"/><rect x="386" y="268" width="6" height="30" fill="#475569"/><rect x="488" y="268" width="6" height="30" fill="#475569"/><g class="head-turn"><circle cx="440" cy="232" r="14" fill="#38bdf8"/><path d="M424 232 A16 16 0 0 1 456 232 Z" fill="#0284c7"/><rect x="438" y="220" width="4" height="10" rx="2" fill="#26D19B"/><circle cx="446" cy="234" r="2" fill="#0f172a"/></g><rect x="416" y="258" width="48" height="36" rx="10" fill="#0EA5E9"/><rect x="462" y="182" width="38" height="12" rx="4" fill="#f8fafc" stroke="#38bdf8" stroke-width="1.5"/><line x1="470" y1="182" x2="466" y2="170" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/><line x1="492" y1="182" x2="496" y2="170" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/><circle cx="472" cy="188" r="2" fill="#26D19B"/><circle cx="480" cy="188" r="2" fill="#26D19B"/><circle cx="488" cy="188" r="2" fill="#0EA5E9"/><path class="wifi-wave" style="transform-origin:481px 194px" d="M472 198 Q481 205 490 198" stroke="#26D19B" stroke-width="2" fill="none"/><rect x="536" y="196" width="44" height="44" rx="6" fill="#1e293b" stroke="#334155" stroke-width="2"/><circle cx="608" cy="236" r="15" fill="#bae6fd"/><path d="M592 234 A16 16 0 0 1 624 234 Z" fill="#0284c7"/><circle cx="608" cy="225" r="5" fill="#26D19B"/><g class="eye-blink"><circle cx="601" cy="238" r="2.5" fill="#0f172a"/><circle cx="615" cy="238" r="2.5" fill="#0f172a"/></g><path d="M604 242 Q608 245 612 242" stroke="#0f172a" stroke-width="1.5" stroke-linecap="round"/><g class="type-hand"><circle cx="595" cy="246" r="4" fill="#38bdf8"/><circle cx="621" cy="246" r="4" fill="#38bdf8"/></g><g class="mail-pop"><rect x="632" y="206" width="18" height="13" rx="2" fill="#0EA5E9" stroke="#f8fafc" stroke-width="1.2"/><polyline points="632,206 641,213 650,206" stroke="#f8fafc" stroke-width="1.2" fill="none"/></g><rect x="582" y="246" width="52" height="34" rx="5" fill="#e2e8f0"/><circle cx="608" cy="263" r="6" fill="#0EA5E9"/><rect x="535" y="280" width="132" height="7" rx="3" fill="#f59e0b"/><rect x="546" y="266" width="16" height="14" rx="3" fill="#0EA5E9"/><ellipse cx="550" cy="259" rx="4" ry="8" fill="#10b981"/><ellipse cx="558" cy="259" rx="4" ry="8" fill="#26D19B"/><rect x="645" y="267" width="12" height="13" rx="2" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><path class="steam" d="M651 263 Q648 258 651 253" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/><rect x="722" y="245" width="9" height="53" rx="3" fill="#0d9488"/><circle cx="726" cy="222" r="28" fill="#10b981"/><circle cx="708" cy="234" r="18" fill="#26D19B"/><circle cx="744" cy="234" r="18" fill="#10b981"/><path d="M129 162 C155 186, 175 186, 205 186 L462 186" stroke="#0284c7" stroke-width="4.5" stroke-linecap="round"/><path d="M129 162 C155 186, 175 186, 205 186 L462 186" stroke="#26D19B" stroke-width="4.5" stroke-linecap="round" class="opt-pulse"/></svg></div></section><section class="sec" id="ekosistem"><div class="sec-title"><h2>Satu Koneksi Fiber untuk Semua Aktivitas</h2><p>Klik pada salah satu lingkaran aktivitas di bawah untuk melihat spesifikasi jalur dan rekomendasi paket terbaiknya</p></div><div style="max-width:780px;margin:0 auto;background:#1e293b;border:1px solid #334155;border-radius:20px;padding:24px;box-shadow:0 20px 40px rgba(0,0,0,.35)"><svg viewBox="0 0 700 440" width="100%" fill="none"><style>
+.line-flow{stroke-dasharray:8 6;animation:flow 1.8s linear infinite}@keyframes flow{to{stroke-dashoffset:-28}}
+.eco-node{cursor:pointer;transition:transform .35s cubic-bezier(.22,1,.36,1),filter .35s ease;transform-box:fill-box;transform-origin:center}
+.eco-node:hover{transform:scale(1.13);filter:drop-shadow(0 0 16px rgba(56,189,248,.85))}
+.eco-node.active{transform:scale(1.18);filter:drop-shadow(0 0 22px rgba(38,209,155,.95))}
+@keyframes routerBeat{0%,100%{filter:drop-shadow(0 0 6px rgba(14,165,233,.4))}50%{filter:drop-shadow(0 0 18px rgba(38,209,155,.8))}}
+.router-glow{animation:routerBeat 2.5s ease-in-out infinite}
+</style><path id="ln-soc" d="M350 220 C270 220,240 95,180 95" stroke="#0EA5E9" stroke-width="3.5" class="line-flow"/><path id="ln-wrk" d="M350 220 C430 220,460 95,520 95" stroke="#26D19B" stroke-width="3.5" class="line-flow"/><path id="ln-gam" d="M350 220 L130 220" stroke="#0EA5E9" stroke-width="3.5" class="line-flow"/><path id="ln-lab" d="M350 220 L570 220" stroke="#26D19B" stroke-width="3.5" class="line-flow"/><path id="ln-str" d="M350 220 C270 220,240 345,180 345" stroke="#0EA5E9" stroke-width="3.5" class="line-flow"/><path id="ln-pos" d="M350 220 C430 220,460 345,520 345" stroke="#26D19B" stroke-width="3.5" class="line-flow"/><g class="router-glow"><line x1="350" y1="150" x2="350" y2="118" stroke="#26D19B" stroke-width="4" stroke-linecap="round"/><circle cx="350" cy="115" r="7" fill="#26D19B"/><rect x="292" y="148" width="116" height="144" rx="22" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/><rect x="308" y="258" width="84" height="18" rx="9" fill="#1e293b"/><circle cx="324" cy="267" r="4" fill="#26D19B"/><circle cx="341" cy="267" r="4" fill="#26D19B"/><circle cx="358" cy="267" r="4" fill="#26D19B"/><circle cx="375" cy="267" r="4" fill="#0EA5E9"/><path d="M349 166A32 32 0 1 0 349 230V217A19 19 0 1 1 349 179Z" fill="#0095da"/><path d="M330 206L344 192L358 206L372 192" stroke="#10b981" stroke-width="4.5" stroke-linecap="round"/><rect x="320" y="199" width="13" height="13" rx="2" fill="#22c55e" stroke="#0f172a" stroke-width="2"/><rect x="336" y="183" width="13" height="13" rx="2" fill="#10b981" stroke="#0f172a" stroke-width="2"/><rect x="352" y="199" width="13" height="13" rx="2" fill="#06b6d4" stroke="#0f172a" stroke-width="2"/><rect x="368" y="183" width="13" height="13" rx="2" fill="#0284c7" stroke="#0f172a" stroke-width="2"/><rect x="355" y="167" width="10" height="10" rx="2" fill="#0095da"/><rect x="371" y="173" width="6" height="6" rx="1" fill="#0095da"/><rect x="355" y="188" width="8" height="8" rx="1.5" fill="#0095da"/><rect x="371" y="204" width="10" height="10" rx="2" fill="#0095da"/><rect x="356" y="216" width="10" height="10" rx="2" fill="#0095da"/></g><g class="eco-node" onclick="pilihEco(this,'Social Media &amp; Live TikTok/IG','Upload simetris 1:1 tanpa patah-patah untuk Live Streaming &amp; upload video HD. Rekomendasi: Home Lite 20 Mbps atau Home Family 30 Mbps.')"><g transform="translate(180,95)"><circle r="54" fill="#0f172a" stroke="#0EA5E9" stroke-width="3.5"/><circle cy="-24" r="10" fill="#38bdf8"/><path d="M-12 -26 A12 12 0 0 1 12 -26" fill="#0284c7"/><rect x="-11" y="-12" width="22" height="16" rx="4" fill="#0EA5E9"/><rect x="14" y="-26" width="9" height="15" rx="2" fill="#26D19B" stroke="#fff" stroke-width="1"/><text y="19" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">Social Media</text><text y="33" text-anchor="middle" fill="#94a3b8" font-size="9.5">Upload &amp; Live</text></g></g><g class="eco-node" onclick="pilihEco(this,'Work From Home &amp; Sekolah Online','Koneksi Zoom/Google Meet jernih tanpa delay dengan stabilitas sinyal tinggi. Rekomendasi: Home Family 30 Mbps.')"><g transform="translate(520,95)"><circle r="54" fill="#0f172a" stroke="#26D19B" stroke-width="3.5"/><circle cy="-25" r="9" fill="#38bdf8"/><rect x="-16" y="-15" width="32" height="18" rx="3" fill="#e2e8f0" stroke="#26D19B" stroke-width="1.5"/><circle cy="-6" r="3" fill="#26D19B"/><line x1="-22" y1="4" x2="22" y2="4" stroke="#f59e0b" stroke-width="2.5"/><text y="19" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">Work &amp; Study</text><text y="33" text-anchor="middle" fill="#94a3b8" font-size="9.5">Meeting Lancar</text></g></g><g class="eco-node" onclick="pilihEco(this,'Pro Gaming Low Ping','Direct peering server game lokal &amp; Singapura (MLBB, PUBG, Valorant) ping stabil di bawah 15ms. Rekomendasi: Pro &amp; Gaming 50 Mbps.')"><g transform="translate(130,220)"><circle r="54" fill="#0f172a" stroke="#0EA5E9" stroke-width="3.5"/><circle cy="-24" r="9" fill="#38bdf8"/><path d="M-13 -24 A13 13 0 0 1 13 -24" stroke="#26D19B" stroke-width="3" fill="none"/><rect x="-15" y="-11" width="30" height="14" rx="6" fill="#0EA5E9"/><circle cx="-7" cy="-4" r="2" fill="#fff"/><circle cx="7" cy="-4" r="2" fill="#fff"/><text y="19" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">Pro Gaming</text><text y="33" text-anchor="middle" fill="#94a3b8" font-size="9.5">Low Ping Stabil</text></g></g><g class="eco-node" onclick="pilihEco(this,'Kantor, Sekolah &amp; Lab Komputer','Mendukung puluhan perangkat bersamaan 24 jam penuh tanpa FUP. Rekomendasi: Paket Pro 50 Mbps / Kemitraan Dedicated.')"><g transform="translate(570,220)"><circle r="54" fill="#0f172a" stroke="#26D19B" stroke-width="3.5"/><rect x="-18" y="-33" width="36" height="22" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/><line x1="-10" y1="-25" x2="10" y2="-25" stroke="#26D19B" stroke-width="2"/><circle cx="-11" cy="-4" r="5" fill="#38bdf8"/><circle cx="11" cy="-4" r="5" fill="#38bdf8"/><line x1="-22" y1="3" x2="22" y2="3" stroke="#f59e0b" stroke-width="2.5"/><text y="19" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">Kantor &amp; Lab</text><text y="33" text-anchor="middle" fill="#94a3b8" font-size="9.5">Multi-User 24/7</text></g></g><g class="eco-node" onclick="pilihEco(this,'Streaming Film 4K &amp; Smart TV','Nonton YouTube 4K, Netflix, dan IPTV keluarga bersamaan tanpa buffering. Rekomendasi: Home Family 30 Mbps.')"><g transform="translate(180,345)"><circle r="54" fill="#0f172a" stroke="#0EA5E9" stroke-width="3.5"/><rect x="-22" y="-22" width="44" height="24" rx="5" fill="#334155"/><circle cy="-24" r="9" fill="#38bdf8"/><rect x="-7" y="-12" width="14" height="13" rx="2" fill="#facc15"/><text y="19" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">Streaming 4K</text><text y="33" text-anchor="middle" fill="#94a3b8" font-size="9.5">Tanpa Buffering</text></g></g><g class="eco-node" onclick="pilihEco(this,'Kasir POS, Warkop &amp; QRIS UMKM','Transaksi pembayaran QRIS instan &amp; WiFi pelanggan stabil sepanjang hari. Rekomendasi: Home Lite 20 Mbps atau Home Family 30 Mbps.')"><g transform="translate(520,345)"><circle r="54" fill="#0f172a" stroke="#26D19B" stroke-width="3.5"/><path d="M-22 -32 H22 L19 -25 H-19 Z" fill="#10b981"/><circle cy="-17" r="7" fill="#38bdf8"/><rect x="-14" y="-8" width="11" height="12" rx="1.5" fill="#fff" stroke="#ef4444" stroke-width="1.5"/><rect x="2" y="-7" width="13" height="11" rx="2" fill="#94a3b8"/><text y="19" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">Kasir &amp; UMKM</text><text y="33" text-anchor="middle" fill="#94a3b8" font-size="9.5">QRIS &amp; POS Cepat</text></g></g></svg><div id="ecoDetail" style="display:none;margin-top:12px;background:#0f172a;border:1px solid #38bdf8;border-radius:12px;padding:14px 18px;text-align:left;transition:all .3s ease"><div style="font-size:13px;font-weight:800;color:#26D19B">&#128161; Klik salah satu lingkaran ikon di atas!</div><div style="font-size:13px;color:#cbd5e1;margin-top:4px">Setiap lingkaran akan membesar bercahaya dan menampilkan detail kebutuhan bandwidth serta paket terbaiknya.</div></div></div></section><script>function pilihEco(el,judul,ket){document.querySelectorAll(".eco-node").forEach(n=>n.classList.remove("active"));el.classList.add("active");var box=document.getElementById("ecoDetail");box.style.display="block";box.style.transform="scale(0.98)";setTimeout(()=>{box.innerHTML="<div style='font-size:15px;font-weight:800;color:#38bdf8'>&#9889; "+judul+"</div><div style='font-size:13px;color:#e2e8f0;margin-top:4px'>"+ket+"</div>";box.style.transform="scale(1)";},120);}</script><section class="sec" id="paket"><div class="sec-title"><h2>Paket Broadband Fiber Unlimited <button onclick="bukaAdminPkg()" title="Kelola Paket" style="background:rgba(14,165,233,.15);border:1px solid #0EA5E9;color:#38bdf8;font-size:12px;padding:4px 10px;border-radius:8px;cursor:pointer;vertical-align:middle;margin-left:6px">&#9881; Kelola Paket</button></h2><p>Gratis biaya instalasi &bull; Perangkat ONT/Router dipinjamkan selama berlangganan</p></div><div id="pkgAdminBox" style="display:none;max-width:720px;margin:0 auto 28px;background:#0f172a;border:1px solid #26D19B;border-radius:16px;padding:20px"><div style="font-size:15px;font-weight:800;color:#26D19B;margin-bottom:12px">&#9881; Mode Admin — Tambah / Atur Paket WiFi</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px"><input id="pNama" placeholder="Nama Paket (misal: Super 100)" style="background:#1e293b;color:#fff;border:1px solid #334155;padding:10px;border-radius:8px"><input id="pSpd" placeholder="Kecepatan (misal: 100 Mbps)" style="background:#1e293b;color:#fff;border:1px solid #334155;padding:10px;border-radius:8px"><input id="pHrg" placeholder="Harga (misal: Rp 400.000)" style="background:#1e293b;color:#fff;border:1px solid #334155;padding:10px;border-radius:8px"><select id="pPop" style="background:#1e293b;color:#fff;border:1px solid #334155;padding:10px;border-radius:8px"><option value="0">Tampilan Standar</option><option value="1">Sorot Hijau (MOST POPULAR)</option></select></div><input id="pFit" placeholder="Fitur (pisahkan dengan koma, misal: Unlimited No FUP, Gratis Router Dual-Band, Prioritas NOC)" style="width:100%;background:#1e293b;color:#fff;border:1px solid #334155;padding:10px;border-radius:8px;margin-bottom:12px"><div style="display:flex;flex-wrap:wrap;gap:10px"><button onclick="tambahPkg()" style="background:#26D19B;color:#0f172a;border:none;padding:10px 18px;border-radius:8px;font-weight:800;cursor:pointer">+ Tambah Paket</button><button onclick="salinPkg()" style="background:#0EA5E9;color:#0f172a;border:none;padding:10px 16px;border-radius:8px;font-weight:800;cursor:pointer">Salin Data Paket (Backup)</button><button onclick="tutupAdminPkg()" style="background:#334155;color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer">Selesai</button></div></div><div class="grid-3" id="pkgGrid"></div></section><script>
+var isAdminPkg = false;
+var pkgs = JSON.parse(localStorage.getItem("gmdp_pkgs_v1") || "null") || [
+  {nama:"Home Lite", spd:"20 Mbps", hrg:"Rp 150.000", pop:false, fitur:["Kecepatan Simetris","Unlimited (No FUP)","Gratis Router WiFi"]},
+  {nama:"Home Family", spd:"30 Mbps", hrg:"Rp 200.000", pop:true, fitur:["Streaming HD & Gaming","Prioritas NOC 24/7","Gratis Instalasi"]},
+  {nama:"Pro & Gaming", spd:"50 Mbps", hrg:"Rp 275.000", pop:false, fitur:["Direct Peering Game","Latensi & Jitter Rendah","Gratis Router Dual-Band"]}
+];
+function renderPkgs(){
+  var g = document.getElementById("pkgGrid");
+  g.innerHTML = "";
+  pkgs.forEach(function(it, i){
+    var waLink = "https://wa.me/6282142641334?text=" + encodeURIComponent("Halo NOC GMDP (082142641334), saya ingin daftar Paket " + it.nama + " (" + it.spd + " - " + it.hrg + "/bln)");
+    var li = it.fitur.map(f=>"<li>&#10004; "+f+"</li>").join("");
+    var delBtn = isAdminPkg ? "<div style='display:flex;gap:6px;margin-top:10px'><button onclick='togglePop("+i+")' style='flex:1;background:#334155;color:#26D19B;border:none;padding:6px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer'>Hijau/Normal</button><button onclick='hapusPkg("+i+")' style='background:#ef4444;color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer'>Hapus</button></div>" : "";
+    g.innerHTML += "<div class='pkg"+(it.pop?" feat":"")+"'>"+(it.pop?"<div class='badge-pop'>MOST POPULAR</div>":"")+"<h3>"+it.nama+"</h3><div class='spd'>"+it.spd+"</div><div class='prc'>"+it.hrg+" <small style='font-size:13px;color:#94a3b8'>/bln</small></div><ul>"+li+"</ul><a href='"+waLink+"' target='_blank'>Daftar Sekarang</a>"+delBtn+"</div>";
+  });
+  localStorage.setItem("gmdp_pkgs_v1", JSON.stringify(pkgs));
+}
+renderPkgs();
+function bukaAdminPkg(){
+  var pin = prompt("Masukkan PIN Admin:");
+  if(pin === "afaw"){ isAdminPkg = true; document.getElementById("pkgAdminBox").style.display = "block"; renderPkgs(); }
+  else if(pin !== null){ alert("PIN salah!"); }
+}
+function tutupAdminPkg(){ isAdminPkg = false; document.getElementById("pkgAdminBox").style.display = "none"; renderPkgs(); }
+function tambahPkg(){
+  var nm = document.getElementById("pNama").value.trim(), sp = document.getElementById("pSpd").value.trim(), hg = document.getElementById("pHrg").value.trim();
+  if(!nm || !sp || !hg){ alert("Isi Nama Paket, Kecepatan, dan Harga dulu!"); return; }
+  var ft = document.getElementById("pFit").value.trim().split(",").map(s=>s.trim()).filter(Boolean);
+  if(!ft.length) ft = ["Unlimited Tanpa FUP", "Dukungan NOC 24/7"];
+  pkgs.push({nama:nm, spd:sp, hrg:hg, pop:document.getElementById("pPop").value==="1", fitur:ft});
+  document.getElementById("pNama").value=""; document.getElementById("pSpd").value=""; document.getElementById("pHrg").value=""; document.getElementById("pFit").value="";
+  renderPkgs();
+}
+function hapusPkg(i){ if(confirm("Hapus paket ini?")){ pkgs.splice(i,1); renderPkgs(); } }
+function togglePop(i){ pkgs[i].pop = !pkgs[i].pop; renderPkgs(); }
+function salinPkg(){ navigator.clipboard.writeText(JSON.stringify(pkgs)); alert("Data paket berhasil disalin! Tempel ke chat jika ingin ditanam permanen sebelum upload ke Google."); }
+</script><section class="sec" id="tools"><div class="sec-title"><h2>Network Tools &amp; Layanan Pelanggan</h2><p>Fasilitas diagnostik jaringan dan layanan mandiri khas operator ISP</p></div><div class="tools-bar"><a class="tool" href="https://fast.com" target="_blank">Speed Test Server <span>OPEN &rarr;</span></a><a class="tool" href="https://he.net" target="_blank">BGP &amp; Looking Glass <span>DIAGNOSTIC &rarr;</span></a><a class="tool" href="https://wa.me/6282142641334?text=Halo%20NOC,%20cek%20tagihan%20E-Billing" target="_blank">Portal E-Billing <span>CEK TAGIHAN &rarr;</span></a><a class="tool" href="https://wa.me/6282142641334?text=Halo%20NOC%20082142641334,%20lapor%20gangguan" target="_blank">Tiket Gangguan 24/7 <span>SUPPORT &rarr;</span></a></div></section><section class="sec" id="coverage"><div class="cov-box"><h3>Cek Jangkauan ODP / Fiber Area Anda</h3><p style="font-size:13px;color:#94a3b8;margin-top:4px">Masukkan nama desa, kelurahan, atau perumahan untuk pengecekan titik ODP terdekat</p><div class="cov-row"><input id="loc" placeholder="Contoh: Pleret, Pasuruan..."><button onclick="cek()">Cek ODP</button></div><p id="res" style="margin-top:12px;font-size:13px;color:#26D19B;font-weight:600"></p></div></section><footer>&copy; 2026 GMDP - Internet &amp; Data Service &bull; Internet &amp; Data Infrastructure Service &bull; NOC Support 24/7</footer><script>function cek(){
+  var v=document.getElementById("loc").value.trim().toLowerCase();
+  if(v.length<3){alert("Masukkan minimal 3 karakter lokasi!");return;}
+  var area=["cafe 87","kampoeng limo","rw 05","warungdowo","pleret","pohjentrek","bugul","kidul","blandongan","kepel","tapaan","krampyangan","bakalan","mandaran","panggungrejo","purworejo","gadingrejo","pasuruan"];
+  var ada=area.some(k=>v.includes(k));
+  var link="https://wa.me/6282142641334?text="+encodeURIComponent("Halo NOC (082142641334), cek titik ODP di area "+v);
+  if(ada){
+    document.getElementById("res").innerHTML="&#9989; <b>Titik ODP Tersedia</b> di area <b>"+v+"</b>!<br>NOC: <b>0821-4264-1334</b> &mdash; <a href='"+link+"' target='_blank' style='color:#38bdf8;text-decoration:underline'>Chat WhatsApp NOC Sekarang &rarr;</a>";
+  }else{
+    document.getElementById("res").innerHTML="&#9888;&#65039; Area <b>"+v+"</b> belum terdata di ODP otomatis.<br>Konfirmasi NOC: <b>0821-4264-1334</b> &mdash; <a href='"+link+"' target='_blank' style='color:#38bdf8;text-decoration:underline'>Tanya NOC via WhatsApp &rarr;</a>";
+  }
+}</script><script>
+fetch("https://stats.labs.apnic.net/ipv6/ID?json=1")
+  .then(r=>r.json())
+  .then(d=>{
+    var list = Array.isArray(d) ? d : (d.data || []);
+    list.sort((a,b)=>(b.est_users||b.users||0)-(a.est_users||a.users||0));
+    var idx = list.findIndex(x=>String(x.as||x.asn).includes("138089"));
+    if(idx !== -1){
+      document.getElementById("eyeballRank").innerText = "#" + (idx + 1);
+    }
+  }).catch(()=>{});
+</script><script>
+(function(){
+  var cv = document.getElementById("hero4d");
+  if(!cv) return;
+  var cx = cv.getContext("2d"), w, h, t = 0, mx = -999, my = -999;
+  function rsz(){
+    w = cv.width = innerWidth * devicePixelRatio;
+    h = cv.height = innerHeight * devicePixelRatio;
+  }
+  window.addEventListener("resize", rsz); rsz();
+  window.addEventListener("mousemove", function(e){
+    mx = e.clientX * devicePixelRatio;
+    my = e.clientY * devicePixelRatio;
+  });
+  var pts = [];
+  for(var i=0; i<75; i++){
+    pts.push({x:Math.random()*w, y:Math.random()*h, vx:(Math.random()-.5)*1.6, vy:(Math.random()-.5)*1.6, r:(Math.random()*2.5+1.8)*devicePixelRatio});
+  }
+  function loop(){
+    t += 0.025;
+    cx.clearRect(0,0,w,h);
+    cx.strokeStyle = "rgba(14,165,233,0.12)";
+    cx.lineWidth = 1 * devicePixelRatio;
+    var step = 55 * devicePixelRatio;
+    for(var gx=0; gx<w; gx+=step){
+      cx.beginPath();
+      for(var gy=0; gy<=h; gy+=30){
+        var wx = gx + Math.sin(gy*0.005 + t)*14*devicePixelRatio;
+        if(gy===0) cx.moveTo(wx,gy); else cx.lineTo(wx,gy);
+      }
+      cx.stroke();
+    }
+    for(var i=0; i<pts.length; i++){
+      var p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>w) p.vx*=-1;
+      if(p.y<0||p.y>h) p.vy*=-1;
+      cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.28);
+      cx.fillStyle = (i%2===0) ? "#26D19B" : "#38bdf8";
+      cx.shadowBlur = 10 * devicePixelRatio; cx.shadowColor = "#0EA5E9";
+      cx.fill(); cx.shadowBlur = 0;
+      for(var j=i+1; j<pts.length; j++){
+        var q = pts[j], d = Math.hypot(p.x-q.x, p.y-q.y);
+        if(d < 160*devicePixelRatio){
+          cx.beginPath(); cx.moveTo(p.x,p.y); cx.lineTo(q.x,q.y);
+          cx.strokeStyle = "rgba(38,209,155," + (1 - d/(160*devicePixelRatio))*0.55 + ")";
+          cx.lineWidth = 1.4*devicePixelRatio; cx.stroke();
+        }
+      }
+      var dm = Math.hypot(p.x-mx, p.y-my);
+      if(false){
+        cx.beginPath(); cx.moveTo(p.x,p.y); cx.lineTo(mx,my);
+        cx.strokeStyle = "rgba(56,189,248,0.8)"; cx.lineWidth = 1.8*devicePixelRatio; cx.stroke();
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script><script>
+(function(){
+  var cv = document.getElementById("hero4d");
+  if(!cv) return;
+  var cx = cv.getContext("2d"), w, h, t = 0, mx = -999, my = -999;
+  function rsz(){
+    w = cv.width = innerWidth * devicePixelRatio;
+    h = cv.height = innerHeight * devicePixelRatio;
+  }
+  window.addEventListener("resize", rsz); rsz();
+  window.addEventListener("mousemove", function(e){
+    mx = e.clientX * devicePixelRatio;
+    my = e.clientY * devicePixelRatio;
+  });
+  var pts = [];
+  for(var i=0; i<75; i++){
+    pts.push({x:Math.random()*w, y:Math.random()*h, vx:(Math.random()-.5)*1.6, vy:(Math.random()-.5)*1.6, r:(Math.random()*2.5+1.8)*devicePixelRatio});
+  }
+  function loop(){
+    t += 0.025;
+    cx.clearRect(0,0,w,h);
+    cx.strokeStyle = "rgba(14,165,233,0.12)";
+    cx.lineWidth = 1 * devicePixelRatio;
+    var step = 55 * devicePixelRatio;
+    for(var gx=0; gx<w; gx+=step){
+      cx.beginPath();
+      for(var gy=0; gy<=h; gy+=30){
+        var wx = gx + Math.sin(gy*0.005 + t)*14*devicePixelRatio;
+        if(gy===0) cx.moveTo(wx,gy); else cx.lineTo(wx,gy);
+      }
+      cx.stroke();
+    }
+    for(var i=0; i<pts.length; i++){
+      var p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>w) p.vx*=-1;
+      if(p.y<0||p.y>h) p.vy*=-1;
+      cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.28);
+      cx.fillStyle = (i%2===0) ? "#26D19B" : "#38bdf8";
+      cx.shadowBlur = 10 * devicePixelRatio; cx.shadowColor = "#0EA5E9";
+      cx.fill(); cx.shadowBlur = 0;
+      for(var j=i+1; j<pts.length; j++){
+        var q = pts[j], d = Math.hypot(p.x-q.x, p.y-q.y);
+        if(d < 160*devicePixelRatio){
+          cx.beginPath(); cx.moveTo(p.x,p.y); cx.lineTo(q.x,q.y);
+          cx.strokeStyle = "rgba(38,209,155," + (1 - d/(160*devicePixelRatio))*0.55 + ")";
+          cx.lineWidth = 1.4*devicePixelRatio; cx.stroke();
+        }
+      }
+      var dm = Math.hypot(p.x-mx, p.y-my);
+      if(false){
+        cx.beginPath(); cx.moveTo(p.x,p.y); cx.lineTo(mx,my);
+        cx.strokeStyle = "rgba(56,189,248,0.8)"; cx.lineWidth = 1.8*devicePixelRatio; cx.stroke();
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script><script>
+function toggleLang(){var d=document.getElementById("langDrop");d.style.display=(d.style.display==="block")?"none":"block";}
+function toggleMenu(btn){var n=document.querySelector("header nav");n.classList.toggle("open");btn.innerHTML=n.classList.contains("open")?"&#10005;":"&#9776;";}
+document.querySelectorAll("header nav a").forEach(a=>a.addEventListener("click",()=>{var n=document.querySelector("header nav");if(n)n.classList.remove("open");var b=document.getElementById("hbBtn");if(b)b.innerHTML="&#9776;";}));
+function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'id',includedLanguages:'id,en,ar,ja,ko,zh-CN,ms,fr,de,es,ru,hi',autoDisplay:false},'google_translate_element');}
+</script><script src="https://google.com"></script></body></html>
+
+<script>
+function toggleLang(){
+  var d=document.getElementById("langDrop");
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+  d.style.display=(d.style.display==="block")?"none":"block";
+}
+function toggleMenu(btn){
+  var d=document.getElementById("langDrop");
+  if(d) d.style.display="none";
+  var m=document.getElementById("mobileDrawer");
+  m.classList.toggle("open");
+  btn.innerHTML=m.classList.contains("open")?"&#10005;":"&#9776;";
+}
+function tutupMenu(){
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+}
+function setBahasa(lang){
+  document.getElementById("langDrop").style.display="none";
+  if(lang==="id"){
+    document.cookie="googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    location.reload();
+    return;
+  }
+  document.cookie="googtrans=/id/"+lang+"; path=/;";
+  var sel=document.querySelector(".goog-te-combo");
+  if(sel){ sel.value=lang; sel.dispatchEvent(new Event("change")); }
+  else { location.reload(); }
+}
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({pageLanguage:"id",autoDisplay:false},"google_translate_element");
+}
+</script>
+<script src="https://google.com"></script>
+
+<script>
+function toggleLang(){
+  var d=document.getElementById("langDrop");
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+  d.style.display=(d.style.display==="block")?"none":"block";
+}
+function toggleMenu(btn){
+  var d=document.getElementById("langDrop");
+  if(d) d.style.display="none";
+  var m=document.getElementById("mobileDrawer");
+  m.classList.toggle("open");
+  btn.innerHTML=m.classList.contains("open")?"&#10005;":"&#9776;";
+}
+function tutupMenu(){
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+}
+function setBahasa(lang){
+  document.getElementById("langDrop").style.display="none";
+  if(lang==="id"){
+    document.cookie="googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    location.reload();
+    return;
+  }
+  document.cookie="googtrans=/id/"+lang+"; path=/;";
+  var sel=document.querySelector(".goog-te-combo");
+  if(sel){ sel.value=lang; sel.dispatchEvent(new Event("change")); }
+  else { location.reload(); }
+}
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({pageLanguage:"id",autoDisplay:false},"google_translate_element");
+}
+</script>
+<script src="https://google.com"></script>
+
+<script>
+function toggleLang(){
+  var d=document.getElementById("langDrop");
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+  d.style.display=(d.style.display==="block")?"none":"block";
+}
+function toggleMenu(btn){
+  var d=document.getElementById("langDrop");
+  if(d) d.style.display="none";
+  var m=document.getElementById("mobileDrawer");
+  m.classList.toggle("open");
+  btn.innerHTML=m.classList.contains("open")?"&#10005;":"&#9776;";
+}
+function tutupMenu(){
+  var m=document.getElementById("mobileDrawer");
+  if(m) m.classList.remove("open");
+  var b=document.getElementById("hbBtn");
+  if(b) b.innerHTML="&#9776;";
+}
+function setBahasa(lang){
+  document.getElementById("langDrop").style.display="none";
+  if(lang==="id"){
+    document.cookie="googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie="googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=."+location.hostname;
+    location.reload();
+    return;
+  }
+  document.cookie="googtrans=/id/"+lang+"; path=/;";
+  document.cookie="googtrans=/id/"+lang+"; path=/; domain=."+location.hostname;
+  var tries=0;
+  var t=setInterval(function(){
+    var sel=document.querySelector(".goog-te-combo");
+    if(sel){
+      sel.value=lang;
+      sel.dispatchEvent(new Event("change"));
+      clearInterval(t);
+    } else if(++tries>15){
+      clearInterval(t);
+      location.reload();
+    }
+  },200);
+}
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({pageLanguage:"id",autoDisplay:false},"google_translate_element");
+}
+</script>
+<script src="https://google.com" async></script>
