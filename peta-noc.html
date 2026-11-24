@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOC Fiber Map - Pasuruan</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+  body { background: #0f172a; color: #f8fafc; overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
+  #bar { background: #0f172a; border-bottom: 1px solid #38bdf8; padding: 8px 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: space-between; z-index: 1000; }
+  .grp { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  button, select, input { background: #1e293b; color: #f8fafc; border: 1px solid #475569; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  button:hover, button.aktif { background: #0ea5e9; border-color: #38bdf8; color: #fff; }
+  input { border-color: #38bdf8; width: 150px; cursor: text; }
+  select { border-color: #38bdf8; }
+  #map { flex: 1; width: 100%; z-index: 1; }
+  .pin-wrap { width: auto !important; height: auto !important; background: none !important; border: none !important; }
+  .badge { display: inline-block; color: #fff; font-weight: 800; font-size: 11px; padding: 4px 8px; border-radius: 5px; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.7); white-space: nowrap; transform: translate(-50%, -50%); }
+  .legenda { background: rgba(15,23,42,0.92); border: 1px solid #38bdf8; padding: 8px 12px; border-radius: 8px; font-size: 11px; line-height: 1.7; color: #f8fafc; }
+</style>
+</head>
+<body>
+<div id="bar">
+  <div class="grp">
+    <button type="button" class="aktif" id="m-lihat" onclick="setMode('lihat')">Geser</button>
+    <button type="button" id="m-MITRA" onclick="setMode('MITRA')">+ OLT Mitra</button><button type="button" id="m-OLT" onclick="setMode('OLT')">+ OLT</button>
+    <button type="button" id="m-ODC" onclick="setMode('ODC')">+ ODC</button>
+    <button type="button" id="m-ODP" onclick="setMode('ODP')">+ ODP</button>
+    <button type="button" id="m-KABEL" onclick="setMode('KABEL')">+ Kabel</button>
+  </div>
+  <div class="grp">
+    <select onchange="loncat(this.value)">
+      <option value="">-- Area Pasuruan --</option>
+      <option value="-7.6745,112.9052">Pleret / Warungdowo</option>
+      <option value="-7.6534,112.9225">Bugul Kidul</option>
+      <option value="-7.6453,112.9075">Alun-Alun Pasuruan</option>
+      <option value="-7.6718,112.8995">Pohjentrek</option>
+      <option value="-7.6430,112.8835">Kraton</option>
+      <option value="-7.6385,112.9012">Gadingrejo</option>
+      <option value="-7.6565,112.9082">Purworejo</option>
+      <option value="-7.5992,112.7825">Bangil</option>
+    </select>
+    <input id="q-cari" placeholder="Ketik desa/jalan..." onkeypress="if(event.key==='Enter')cari()">
+    <button type="button" style="background:#0ea5e9;border-color:#38bdf8;" onclick="cari()">Cari</button>
+  </div>
+  <div class="grp">
+    <button type="button" style="color:#34d399;" onclick="salinJSON()">Salin JSON</button>
+    <button type="button" style="color:#f87171;" onclick="resetAll()">Reset</button>
+  </div>
+</div>
+<div id="map"></div>
+<script>
+var map = L.map('map', { center: [-7.6534, 112.9075], zoom: 14, doubleClickZoom: false });
+var gMap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', { maxZoom: 21, attribution: 'Google Maps' }).addTo(map);
+var gSat = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', { maxZoom: 21, attribution: 'Google Satelit' });
+L.control.layers({ 'Peta Jalan': gMap, 'Satelit': gSat }).addTo(map);
+
+var lg = L.layerGroup().addTo(map);
+var mode = 'lihat', pts = [], tempLine = null;
+var db = JSON.parse(localStorage.getItem('ftth_clean_db') || 'null') || { nodes: [], cables: [] };
+
+function setMode(m) {
+  mode = m; pts = [];
+  if (tempLine) { map.removeLayer(tempLine); tempLine = null; }
+  document.querySelectorAll('#bar button').forEach(b => b.classList.remove('aktif'));
+  var el = document.getElementById('m-' + m);
+  if (el) el.classList.add('aktif');
+  document.getElementById('map').style.cursor = (m === 'lihat') ? '' : 'crosshair';
+}
+
+function loncat(v) {
+  if (!v) return;
+  var a = v.split(',');
+  map.flyTo([parseFloat(a[0]), parseFloat(a[1])], 16);
+}
+
+function cari() {
+  var q = document.getElementById('q-cari').value.trim();
+  if (!q) return;
+  var u = 'https://photon.komoot.io/api?limit=1&q=' + encodeURIComponent(q + ' Pasuruan');
+  fetch(u).then(r => r.json()).then(d => {
+    if (d && d.features && d.features.length > 0) {
+      var c = d.features[0].geometry.coordinates;
+      map.flyTo([c[1], c[0]], 16);
+    } else {
+      alert('Lokasi tidak ditemukan');
+    }
+  }).catch(() => alert('Gagal mencari lokasi'));
+}
+
+function delNode(i) { db.nodes.splice(i, 1); render(); }
+function delCable(i) { db.cables.splice(i, 1); render(); }
+
+function render() {
+  lg.clearLayers();
+  db.cables.forEach((c, i) => {
+    var col = c.jenis === 'feeder' ? '#ef4444' : '#0ea5e9';
+    var dash = c.jenis === 'feeder' ? null : '6,6';
+    L.polyline(c.titik, { color: col, weight: c.jenis === 'feeder' ? 5 : 3.5, dashArray: dash })
+      .addTo(lg).bindPopup('<b>' + c.nama + '</b><br><button onclick="delCable(' + i + ')" style="margin-top:5px;background:#ef4444;">Hapus Kabel</button>');
+  });
+  db.nodes.forEach((n, i) => {
+    var col = n.tipe === 'MITRA' ? '#8b5cf6' : n.tipe === 'OLT' ? '#ef4444' : (n.tipe === 'ODC' ? '#f59e0b' : '#10b981');
+    var ic = L.divIcon({ className: 'pin-wrap', html: '<div class="badge" style="background:' + col + '">' + n.id + '</div>', iconSize: null });
+    var mk = L.marker([n.lat, n.lng], { icon: ic, draggable: true }).addTo(lg);
+    mk.on('dragend', e => { var p = e.target.getLatLng(); db.nodes[i].lat = p.lat; db.nodes[i].lng = p.lng; save(); });
+    mk.bindPopup('<b>' + n.id + '</b> (' + n.tipe + ')<br>' + n.info + '<br><button onclick="delNode(' + i + ')" style="margin-top:5px;background:#ef4444;">Hapus Titik</button>');
+  });
+  save();
+}
+
+function save() { localStorage.setItem('ftth_clean_db', JSON.stringify(db)); }
+function salinJSON() { navigator.clipboard.writeText(JSON.stringify(db)).then(() => alert('Data JSON tersalin!')); }
+function resetAll() { if (confirm('Kosongkan semua titik & kabel?')) { db = { nodes: [], cables: [] }; render(); } }
+
+map.on('click', e => {
+  if (mode === 'MITRA' || mode === 'OLT' || mode === 'ODC' || mode === 'ODP') {
+    var nama = prompt('Kode ' + mode + ':', mode + '-01');
+    if (!nama) return;
+    var info = prompt('Keterangan / Port:', 'Aktif') || 'Aktif';
+    db.nodes.push({ id: nama, tipe: mode, lat: e.latlng.lat, lng: e.latlng.lng, info: info });if(db.nodes.length>1){var prev=db.nodes[db.nodes.length-2];var cur=db.nodes[db.nodes.length-1];var jAuto=(cur.tipe==='ODP')?'distribusi':'feeder';db.cables.push({nama:prev.id+' -> '+cur.id,jenis:jAuto,titik:[[prev.lat,prev.lng],[cur.lat,cur.lng]]});}
+    render(); setMode('lihat');
+  } else if (mode === 'KABEL') {
+    pts.push([e.latlng.lat, e.latlng.lng]);
+    if (tempLine) map.removeLayer(tempLine);
+    tempLine = L.polyline(pts, { color: '#facc15', weight: 4 }).addTo(map);
+  }
+});
+
+map.on('dblclick', e => {
+  if (mode === 'KABEL' && pts.length >= 2) {
+    L.DomEvent.stopPropagation(e);
+    var nama = prompt('Nama Jalur Kabel:', 'Kabel Distribusi FO');
+    if (nama) {
+      var j = confirm('OK = Feeder (Merah Tebal), Cancel = Distribusi (Biru Putus-putus)') ? 'feeder' : 'distribusi';
+      db.cables.push({ nama: nama, jenis: j, titik: pts });
+      render();
+    }
+    setMode('lihat');
+  }
+});
+
+var leg = L.control({ position: 'bottomleft' });
+leg.onAdd = () => {
+  var d = L.DomUtil.create('div', 'legenda');
+  d.innerHTML = '<span style="color:#8b5cf6">&#9632;</span> OLT Mitra &nbsp;<span style="color:#ef4444">&#9632;</span> OLT &nbsp;<span style="color:#f59e0b">&#9632;</span> ODC &nbsp;<span style="color:#10b981">&#9632;</span> ODP<br><span style="color:#ef4444">&#9473;</span> Feeder &nbsp;<span style="color:#0ea5e9">&#9476;</span> Distribusi';
+  return d;
+};
+leg.addTo(map);
+render();
+</script>
+</body>
+</html>
